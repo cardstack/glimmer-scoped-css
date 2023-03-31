@@ -41,7 +41,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           let encodedCssFilePath = btoa(textContent(node));
 
           jsutils.importForSideEffect(
-            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&id=${dataAttribute}!`
+            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&selector=${dataAttribute}!`
           );
           return null;
         } else {

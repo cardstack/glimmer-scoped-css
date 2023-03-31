@@ -3,29 +3,29 @@ import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
 
 export default function virtualLoader(this: LoaderContext<unknown>) {
-  let cssFileAndIdString = this.loaders[this.loaderIndex]?.options;
+  let cssFileAndSelectorString = this.loaders[this.loaderIndex]?.options;
 
-  if (typeof cssFileAndIdString !== 'string') {
+  if (typeof cssFileAndSelectorString !== 'string') {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader received unexpected request: ${cssFileAndIdString}`
+      `glimmer-scoped-css/src/virtual-loader received unexpected request: ${cssFileAndSelectorString}`
     );
   }
 
-  let cssFileAndId = new URLSearchParams(cssFileAndIdString);
+  let cssFileAndSelector = new URLSearchParams(cssFileAndSelectorString);
 
-  let cssFile = cssFileAndId.get('file');
+  let cssFile = cssFileAndSelector.get('file');
 
   if (!cssFile) {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader missing file parameter: ${cssFileAndIdString}`
+      `glimmer-scoped-css/src/virtual-loader missing file parameter: ${cssFileAndSelectorString}`
     );
   }
 
-  let cssSelector = cssFileAndId.get('id');
+  let cssSelector = cssFileAndSelector.get('selector');
 
   if (!cssSelector) {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader missing selector parameter: ${cssFileAndIdString}`
+      `glimmer-scoped-css/src/virtual-loader missing selector parameter: ${cssFileAndSelectorString}`
     );
   }
 
