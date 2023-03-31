@@ -9,7 +9,6 @@ const webpackConfig = {
     rules: [
       {
         test(filename) {
-          console.log(`testing ${filename}`);
           return filename.startsWith('glimmer-scoped-css/');
         },
         use: [

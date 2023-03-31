@@ -23,7 +23,7 @@
     "prepack": "rollup --config"
   },
   "dependencies": {
-    "@embroider/addon-shim": "^1.0.0",
+    "@embroider/addon-shim": "1.8.4-unstable.00ec2e7",
     "js-string-escape": "^1.0.1",
     "unplugin": "^1.0.1"
   },
@@ -34,7 +34,7 @@
     "@babel/plugin-syntax-decorators": "^7.17.0",
     "@babel/plugin-transform-modules-commonjs": "^7.20.11",
     "@babel/preset-typescript": "^7.18.6",
-    "@embroider/addon-dev": "^3.0.0",
+    "@embroider/addon-dev": "3.0.0-unstable.00ec2e7",
     "@glimmer/syntax": "^0.84.2",
     "@glint/core": "^0.9.7",
     "@glint/environment-ember-loose": "^0.9.7",

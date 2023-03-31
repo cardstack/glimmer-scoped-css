@@ -6,6 +6,7 @@ import type {
 import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
 import jsStringEscape from 'js-string-escape';
 import { basename } from 'path';
+import crypto from 'node:crypto';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -13,6 +14,12 @@ type Env = WithJSUtils<ASTPluginEnvironment> & {
   strict?: boolean;
   locals?: string[];
 };
+
+function uniqueIdentifier(filename: string): string {
+  let hash = crypto.createHash('sha1');
+  hash.update(filename);
+  return hash.digest('hex').slice(0, 10);
+}
 
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
   let {
@@ -26,12 +33,12 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     visitor: {
       ElementNode(node, path) {
         if (node.tag === 'style') {
-          jsutils.importForSideEffect(
-            `glimmer-scoped-css/${btoa(textContent(node))}`
-          );
+          // jsutils.importForSideEffect(
+          //   `glimmer-scoped-css/${btoa(textContent(node))}`
+          // );
         } else {
           node.attributes.push(
-            builders.attr('data-scopedcss', builders.text('123'))
+            builders.attr(`data-scopedcss-${uniqueIdentifier(env.filename)}`, builders.text(''))
           );
         }
       },
