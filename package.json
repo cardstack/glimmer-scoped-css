@@ -1,0 +1,26 @@
+{
+  "name": "glimmer-scoped-css",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "",
+  "license": "MIT",
+  "author": "",
+  "scripts": {
+    "prepare": "pnpm build",
+    "build": "pnpm --filter glimmer-scoped-css build",
+    "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
+    "start:tests": "pnpm --filter test-app start",
+    "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
+    "test": "pnpm --filter test-app test",
+    "lint": "pnpm --filter '*' lint",
+    "lint:fix": "pnpm --filter '*' lint:fix"
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1",
+    "prettier": "^2.5.1"
+  },
+  "workspaces": [
+    "glimmer-scoped-css",
+    "test-app"
+  ]
+}

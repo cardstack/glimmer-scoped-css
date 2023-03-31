@@ -1,0 +1,3 @@
+packages:
+  - 'glimmer-scoped-css'
+  - 'test-app'
