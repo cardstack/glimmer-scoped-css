@@ -1,7 +1,10 @@
 glimmer-scoped-css
 ==============================================================================
 
-[Short description of the addon.]
+Progress note:
+ - next step is to pass the real scope ID across into the virtual loader
+ - pending work to look at real webpack rules so we don't hard code style-loader et al.
+ - currently depends on unpublished embroider fix https://github.com/embroider-build/embroider/pull/1386, which should go to unstable as soon as we merge https://github.com/embroider-build/embroider/pull/1390
 
 
 Compatibility
