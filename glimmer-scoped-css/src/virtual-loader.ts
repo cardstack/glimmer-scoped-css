@@ -3,15 +3,22 @@ import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
 
 export default function virtualLoader(this: LoaderContext<unknown>) {
-  let encodedCSS = this.loaders[this.loaderIndex]?.options;
+  let cssFileAndIdString = this.loaders[this.loaderIndex]?.options;
 
-  if (typeof encodedCSS !== 'string') {
+  if (typeof cssFileAndIdString !== 'string') {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader received unexpected request: ${encodedCSS}`
+      `glimmer-scoped-css/src/virtual-loader received unexpected request: ${cssFileAndIdString}`
     );
   }
-  let cssSource = atob(encodedCSS);
-  let result = postcss([scopedStylesPlugin('id')]).process(cssSource)
-  return result.css;
 
+  let cssFileAndId = new URLSearchParams(cssFileAndIdString);
+
+  // TODO add error handling when expected parameters are not present
+
+  let cssSource = atob(cssFileAndId.get('file')!);
+  let result = postcss([scopedStylesPlugin(cssFileAndId.get('id')!)]).process(
+    cssSource
+  );
+
+  return result.css;
 }

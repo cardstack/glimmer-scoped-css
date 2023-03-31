@@ -22,6 +22,8 @@ function uniqueIdentifier(filename: string): string {
 }
 
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
+  let dataAttribute = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
+
   let {
     syntax: { builders },
     meta: { jsutils },
@@ -36,14 +38,14 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           // TODO: hard coding the loader chain means we ignore the other
           // prevailing rules (and we're even assuming these loaders are
           // available)
+          let encodedCssFilePath = btoa(textContent(node));
+
           jsutils.importForSideEffect(
-            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?${btoa(textContent(node))}!`
+            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&id=${dataAttribute}!`
           );
           return null;
         } else {
-          node.attributes.push(
-            builders.attr(`data-scopedcss-${uniqueIdentifier(env.filename)}`, builders.text(''))
-          );
+          node.attributes.push(builders.attr(dataAttribute, builders.text('')));
         }
       },
     },
