@@ -25,6 +25,8 @@
   "dependencies": {
     "@embroider/addon-shim": "1.8.4-unstable.00ec2e7",
     "js-string-escape": "^1.0.1",
+    "postcss": "^8.4.21",
+    "postcss-selector-parser": "^6.0.11",
     "unplugin": "^1.0.1"
   },
   "devDependencies": {

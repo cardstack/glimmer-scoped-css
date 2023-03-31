@@ -33,9 +33,13 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     visitor: {
       ElementNode(node, path) {
         if (node.tag === 'style') {
-          // jsutils.importForSideEffect(
-          //   `glimmer-scoped-css/${btoa(textContent(node))}`
-          // );
+          // TODO: hard coding the loader chain means we ignore the other
+          // prevailing rules (and we're even assuming these loaders are
+          // available)
+          jsutils.importForSideEffect(
+            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?${btoa(textContent(node))}!`
+          );
+          return null;
         } else {
           node.attributes.push(
             builders.attr(`data-scopedcss-${uniqueIdentifier(env.filename)}`, builders.text(''))
