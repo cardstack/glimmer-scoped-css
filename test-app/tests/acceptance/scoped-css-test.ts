@@ -65,4 +65,20 @@ module('Acceptance | scoped css', function (hooks) {
         'expected splattributes element within nested component to have its component’s scoped CSS selector'
       );
   });
+
+  test('component elements have styles from component template CSS', async function (assert) {
+    await visit('/');
+
+    assert.dom('[data-test-outer-p]').hasStyle({
+      color: 'rgb(0, 0, 255)',
+    });
+
+    assert.dom('[data-test-inner-first-p]').hasStyle({
+      color: 'rgb(0, 0, 255)',
+    });
+
+    assert.dom('[data-test-inner-second-p]').doesNotHaveStyle({
+      color: 'rgb(0, 0, 255)',
+    });
+  });
 });
