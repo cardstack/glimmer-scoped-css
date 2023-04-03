@@ -5,7 +5,7 @@ import { setupApplicationTest } from 'test-app/tests/helpers';
 module('Acceptance | scoped css', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('components have scoped CSS selectors', async function (assert) {
+  test('component elements have scoped CSS selectors', async function (assert) {
     await visit('/');
 
     assert.strictEqual(currentURL(), '/');
