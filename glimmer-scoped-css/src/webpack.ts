@@ -1,4 +1,4 @@
-import type { Compiler, Module } from 'webpack';
+import type { Compiler } from 'webpack';
 import { resolve } from 'path';
 
 export const virtualLoaderName = 'glimmer-scoped-css';
@@ -36,10 +36,4 @@ export class GlimmerScopedCSSWebpackPlugin {
     //   );
     // });
   }
-}
-
-type CB = (err?: null | Error, result?: Module | undefined) => void;
-
-function isRelevantRequest(state: any): state is { request: string } {
-  return typeof state.request === 'string';
 }

@@ -6,7 +6,7 @@ export const unplugin = createUnplugin(() => {
   return {
     name: 'unplugin-glimmer-scoped-css',
 
-    async resolveId(source, importer, options) {
+    async resolveId(source, importer) {
       if (!source.startsWith(PREFIX) || !importer) {
         return null;
       }

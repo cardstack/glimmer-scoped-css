@@ -1,5 +1,6 @@
 import plugin from './ast-transform';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function installScopedCSS(registry: any) {
   registry.add('htmlbars-ast-plugin', buildASTPlugin());
 }
