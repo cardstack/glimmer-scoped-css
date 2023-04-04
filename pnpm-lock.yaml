@@ -147,8 +147,8 @@ importers:
         specifier: ^7.2.1
         version: 7.6.0
       ember-template-lint:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^5.3.1
+        version: 5.7.2
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -2749,18 +2749,6 @@ packages:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
     dev: true
 
-  /@lint-todo/utils@12.0.1:
-    resolution: {integrity: sha512-Xiy5wN+ns95gEHepJ55TXEBAZrkZlzrF9wTjqoTgv+RYOYL3+qQ+v0RtPH2n/UwPJEFuXJ6QKiT99RnUOt1pzw==}
-    engines: {node: 12.* || >= 14}
-    dependencies:
-      '@types/eslint': 7.29.0
-      fs-extra: 9.1.0
-      proper-lockfile: 4.1.2
-      slash: 3.0.0
-      tslib: 2.5.0
-      upath: 2.0.1
-    dev: true
-
   /@lint-todo/utils@13.1.0:
     resolution: {integrity: sha512-uzcZPIPH7hcs+hKMiHfp58MosJpI9sTTgl1pGYau4zq34q1ppswJ6nLeohv/cDhqEBrHjtvldt8zDnVJXRvBlA==}
     engines: {node: 12.* || >= 14}
@@ -4160,11 +4148,6 @@ packages:
   /array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
-    dev: true
-
-  /array-union@3.0.1:
-    resolution: {integrity: sha512-1OvF9IbWwaeiM9VhzYXVQacMibxpXOMYVNIvMtKRyX9SImBXpKcFr8XvFDeEslCyuH/t6KRt7HEO94AlP8Iatw==}
-    engines: {node: '>=12'}
     dev: true
 
   /array-unique@0.3.2:
@@ -7485,29 +7468,6 @@ packages:
       - supports-color
     dev: true
 
-  /ember-template-lint@4.0.0:
-    resolution: {integrity: sha512-5pEpr5TZbTB+TejoePmAPoRbdPW4HxkYmhbgvQOZwALmbFA62/ZvxEGfV+ZyGPSxCQXMXxZyx0ZUHqr2WtlM3w==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    hasBin: true
-    dependencies:
-      '@lint-todo/utils': 12.0.1
-      chalk: 4.1.2
-      ci-info: 3.8.0
-      date-fns: 2.29.3
-      ember-template-recast: 6.1.4
-      find-up: 6.3.0
-      fuse.js: 6.6.2
-      get-stdin: 9.0.0
-      globby: 12.2.0
-      is-glob: 4.0.3
-      micromatch: 4.0.5
-      resolve: 1.22.1
-      v8-compile-cache: 2.3.0
-      yargs: 17.7.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /ember-template-lint@5.7.2:
     resolution: {integrity: sha512-HnIbS2WGPMG7wkvUERwtOhWuneWlTlo3c7QJXS5jyVCHYaBpJ16khJMTrylikNfED2BZoLgJqvmjGL1A/3s9hQ==}
     engines: {node: ^14.18.0 || ^16.0.0 || >= 18.0.0}
@@ -9024,18 +8984,6 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
-    dev: true
-
-  /globby@12.2.0:
-    resolution: {integrity: sha512-wiSuFQLZ+urS9x2gGPl1H5drc5twabmm4m2gTR27XDFyjUHJUNsS8o/2aKyIF6IoBaR630atdher0XJ5g6OMmA==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      array-union: 3.0.1
-      dir-glob: 3.0.1
-      fast-glob: 3.2.12
-      ignore: 5.2.4
-      merge2: 1.4.1
-      slash: 4.0.0
     dev: true
 
   /globby@13.1.3:
