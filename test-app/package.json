@@ -32,7 +32,6 @@
     "@embroider/test-setup": "2.1.1-unstable.72d5a8e",
     "@embroider/webpack": "2.1.1-unstable.72d5a8e",
     "@glimmer/component": "^1.1.2",
-    "@glimmer/tracking": "^1.1.2",
     "@tsconfig/ember": "^2.0.0",
     "@types/ember": "^4.0.3",
     "@types/ember-qunit": "^6.1.1",

@@ -215,9 +215,6 @@ importers:
       '@glimmer/component':
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.21.4)
-      '@glimmer/tracking':
-        specifier: ^1.1.2
-        version: 1.1.2
       '@tsconfig/ember':
         specifier: ^2.0.0
         version: 2.0.0
@@ -2360,13 +2357,6 @@ packages:
       simple-html-tokenizer: 0.5.11
     dev: true
 
-  /@glimmer/tracking@1.1.2:
-    resolution: {integrity: sha512-cyV32zsHh+CnftuRX84ALZpd2rpbDrhLhJnTXn9W//QpqdRZ5rdMsxSY9fOsj0CKEc706tmEU299oNnDc0d7tA==}
-    dependencies:
-      '@glimmer/env': 0.1.7
-      '@glimmer/validator': 0.44.0
-    dev: true
-
   /@glimmer/util@0.44.0:
     resolution: {integrity: sha512-duAsm30uVK9jSysElCbLyU6QQYO2X9iLDLBIBUcCqck9qN1o3tK2qWiHbGK5d6g8E2AJ4H88UrfElkyaJlGrwg==}
     dev: true
@@ -2377,10 +2367,6 @@ packages:
       '@glimmer/env': 0.1.7
       '@glimmer/interfaces': 0.84.3
       '@simple-dom/interface': 1.4.0
-    dev: true
-
-  /@glimmer/validator@0.44.0:
-    resolution: {integrity: sha512-i01plR0EgFVz69GDrEuFgq1NheIjZcyTy3c7q+w7d096ddPVeVcRzU3LKaqCfovvLJ+6lJx40j45ecycASUUyw==}
     dev: true
 
   /@glimmer/validator@0.84.3:
