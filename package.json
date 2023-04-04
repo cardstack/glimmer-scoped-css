@@ -19,11 +19,6 @@
     "concurrently": "^7.2.1",
     "prettier": "^2.5.1"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/eslint": "^8.37.0"
-    }
-  },
   "workspaces": [
     "glimmer-scoped-css",
     "test-app"
