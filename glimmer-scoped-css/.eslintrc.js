@@ -30,6 +30,7 @@ module.exports = {
       rules: {
         // Add any custom rules here
         'prefer-const': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
