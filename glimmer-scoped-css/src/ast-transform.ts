@@ -4,8 +4,6 @@ import type {
   ASTv1,
 } from '@glimmer/syntax';
 import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
-import jsStringEscape from 'js-string-escape';
-import { basename } from 'path';
 import crypto from 'node:crypto';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
@@ -33,7 +31,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     name: 'glimmer-scoped-css',
 
     visitor: {
-      ElementNode(node, path) {
+      ElementNode(node) {
         if (node.tag === 'style') {
           // TODO: hard coding the loader chain means we ignore the other
           // prevailing rules (and we're even assuming these loaders are

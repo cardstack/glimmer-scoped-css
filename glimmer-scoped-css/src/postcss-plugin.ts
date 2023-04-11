@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
   Forked from https://github.com/vuejs/core/blob/c346af2b6aa1c2796818405b4a960fc5c571594e/packages/compiler-sfc/src/stylePluginScoped.ts
 
