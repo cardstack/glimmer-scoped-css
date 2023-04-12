@@ -30,9 +30,9 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     ).join('!');
   } catch (error: any) {
     console.log('Unable to read css-loaders.json');
-    throw new Error(
-      'Unable to determine Webpack CSS loaders, could not read css-loaders.json'
-    );
+    // throw new Error(
+    //   'Unable to determine Webpack CSS loaders, could not read css-loaders.json'
+    // );
   }
 
   console.log(`Prepending this CSS loader string: ${existingCssLoaders}`);
