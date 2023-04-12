@@ -5,6 +5,7 @@ import type {
 } from '@glimmer/syntax';
 import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
 import crypto from 'node:crypto';
+import fs from 'fs';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -20,6 +21,22 @@ function uniqueIdentifier(filename: string): string {
 }
 
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
+  let existingCssLoaders = '';
+
+  try {
+    fs.accessSync('css-loaders.json');
+    existingCssLoaders = JSON.parse(
+      fs.readFileSync('css-loaders.json').toString()
+    ).join('!');
+  } catch (error: any) {
+    console.log('Unable to read css-loaders.json');
+    throw new Error(
+      'Unable to determine Webpack CSS loaders, could not read css-loaders.json'
+    );
+  }
+
+  console.log(`Prepending this CSS loader string: ${existingCssLoaders}`);
+
   let dataAttribute = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
 
   let {
@@ -33,13 +50,10 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     visitor: {
       ElementNode(node) {
         if (node.tag === 'style') {
-          // TODO: hard coding the loader chain means we ignore the other
-          // prevailing rules (and we're even assuming these loaders are
-          // available)
           let encodedCssFilePath = btoa(textContent(node));
 
           jsutils.importForSideEffect(
-            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&selector=${dataAttribute}!`
+            `${existingCssLoaders}!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&selector=${dataAttribute}!`
           );
           return null;
         } else {

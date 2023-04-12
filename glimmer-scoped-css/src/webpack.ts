@@ -1,5 +1,6 @@
 import type { Compiler } from 'webpack';
 import { resolve } from 'path';
+import fs from 'fs';
 
 export const virtualLoaderName = 'glimmer-scoped-css';
 
@@ -18,6 +19,48 @@ export class GlimmerScopedCSSWebpackPlugin {
   }
 
   apply(compiler: Compiler) {
+    // Look for the rule that applies to CSS, currently called isCSS:
+    // https://github.com/embroider-build/embroider/blob/3a9d8ade05e92b65045a01d59898f063e337fcd1/packages/webpack/src/ember-webpack.ts#L262-L263
+
+    let cssRules = compiler.options.module.rules.find(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      (rule) => 'test' in rule && rule.test.toString().includes('isCSS')
+    );
+
+    if (cssRules) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      let cssLoaders = cssRules.use.map(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        (loader) => loader.loader
+      );
+
+      let filePath = 'css-loaders.json';
+
+      // TODO what hook is most appropriate?
+      compiler.hooks.afterCompile.tapAsync(
+        'GlimmerScopedCSSWebpackPlugin',
+        async (_compilation, callback) => {
+          try {
+            await fs.promises.access(filePath);
+            await fs.promises.unlink(filePath);
+            console.log('File deleted successfully');
+          } catch (error: any) {
+            console.log('Error deleting css-loaders.json', error);
+          }
+
+          await fs.promises.writeFile(
+            filePath,
+            JSON.stringify(cssLoaders, null, 2)
+          );
+
+          callback();
+        }
+      );
+    }
+
     this.addLoaderAlias(
       compiler,
       virtualLoaderName,
