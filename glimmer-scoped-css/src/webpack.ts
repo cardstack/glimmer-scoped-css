@@ -51,10 +51,10 @@ export class GlimmerScopedCSSWebpackPlugin {
             console.log('Error deleting css-loaders.json', error);
           }
 
-          await fs.promises.writeFile(
-            filePath,
-            JSON.stringify(cssLoaders, null, 2)
-          );
+          let cssLoadersOutput = JSON.stringify(cssLoaders, null, 2);
+          console.log('Writing css-loaders.json: ', cssLoadersOutput);
+
+          await fs.promises.writeFile(filePath, cssLoadersOutput);
 
           callback();
         }
