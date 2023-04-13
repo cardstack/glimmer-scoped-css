@@ -21,22 +21,6 @@ function uniqueIdentifier(filename: string): string {
 }
 
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
-  let existingCssLoaders = '';
-
-  try {
-    fs.accessSync('css-loaders.json');
-    existingCssLoaders = JSON.parse(
-      fs.readFileSync('css-loaders.json').toString()
-    ).join('!');
-  } catch (error: any) {
-    console.log('Unable to read css-loaders.json');
-    // throw new Error(
-    //   'Unable to determine Webpack CSS loaders, could not read css-loaders.json'
-    // );
-  }
-
-  console.log(`Prepending this CSS loader string: ${existingCssLoaders}`);
-
   let dataAttribute = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
 
   let {
@@ -44,11 +28,31 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     meta: { jsutils },
   } = env;
 
+  let existingCssLoaders: string[] = [];
+
   return {
     name: 'glimmer-scoped-css',
 
     visitor: {
       ElementNode(node) {
+        if (!existingCssLoaders.length) {
+          try {
+            fs.accessSync('css-loaders.json');
+            existingCssLoaders = JSON.parse(
+              fs.readFileSync('css-loaders.json').toString()
+            ).join('!');
+          } catch (error: any) {
+            console.log('Unable to read css-loaders.json');
+            throw new Error(
+              'Unable to determine Webpack CSS loaders, could not read css-loaders.json'
+            );
+          }
+
+          console.log(
+            `Prepending this CSS loader string: ${existingCssLoaders}`
+          );
+        }
+
         if (node.tag === 'style') {
           let encodedCssFilePath = btoa(textContent(node));
 
