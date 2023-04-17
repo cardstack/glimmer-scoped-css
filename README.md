@@ -32,7 +32,7 @@ p[data-scopedcss-53259f1da9] {
 }
 ```
 
-Nested components only have the parent component’s styles on elements with `...attributes`.
+Nested components only have the parent component’s styles on elements with `...attributes`. You can see this in action in `test-app`.
 
 ## Limitations
 
