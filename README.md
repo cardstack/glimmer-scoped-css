@@ -40,6 +40,7 @@ This is an alpha release with several limitations:
 
 - it assumes a Webpack build
 - it hardcodes Webpack CSS loaders
+- the styles are in a `style` element in `index.html`, not linked
 - there is log noise about source maps like this:
   ```
   unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9"
