@@ -41,7 +41,7 @@ This is an alpha release with several limitations:
 - it requires an unstable Embroider build (at least `2.1.1-unstable.72d5a8e`)
 - it assumes a Webpack build
 - it hardcodes Webpack CSS loaders
-  - this works fine when you have the default loaders configured by @embroider/webpack
+  - this works fine when you have the default loaders configured by `@embroider/webpack`
 - the styles are in a `style` element in `index.html`, not linked
 - there is log noise about source maps like this:
   ```
