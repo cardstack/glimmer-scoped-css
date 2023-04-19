@@ -38,7 +38,7 @@ Nested components only have the parent component’s styles on elements with `..
 
 This is an alpha release with several limitations:
 
-- it requires an unstable Embroider build (FIXME)
+- it requires an unstable Embroider build (at least `2.1.1-unstable.72d5a8e`)
 - it assumes a Webpack build
 - it hardcodes Webpack CSS loaders
 - the styles are in a `style` element in `index.html`, not linked
