@@ -19,9 +19,9 @@ If you have `app/components/something.hbs`:
 you get this generated HTML:
 
 ```html
-<h1 data-scopedcss-58ccb4dfe0>Outer h1</h1>
+<h1 data-scopedcss-58ccb4dfe0>An h1</h1>
 
-<p data-scopedcss-58ccb4dfe0>Outer p.</p>
+<p data-scopedcss-58ccb4dfe0>A p.</p>
 ```
 
 and this generated CSS:
