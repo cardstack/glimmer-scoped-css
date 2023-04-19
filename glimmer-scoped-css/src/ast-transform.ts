@@ -19,38 +19,44 @@ function uniqueIdentifier(filename: string): string {
   return hash.digest('hex').slice(0, 10);
 }
 
-const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
-  let dataAttribute = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
+export default function generateScopedCSSTransform(
+  cssLoaders = 'style-loader!css-loader!'
+) {
+  const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
+    let dataAttribute = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
 
-  let {
-    syntax: { builders },
-    meta: { jsutils },
-  } = env;
+    let {
+      syntax: { builders },
+      meta: { jsutils },
+    } = env;
 
-  return {
-    name: 'glimmer-scoped-css',
+    return {
+      name: 'glimmer-scoped-css',
 
-    visitor: {
-      ElementNode(node) {
-        if (node.tag === 'style') {
-          // TODO: hard coding the loader chain means we ignore the other
-          // prevailing rules (and we're even assuming these loaders are
-          // available)
-          let encodedCssFilePath = btoa(textContent(node));
+      visitor: {
+        ElementNode(node) {
+          if (node.tag === 'style') {
+            // TODO: hard coding the loader chain means we ignore the other
+            // prevailing rules (and we're even assuming these loaders are
+            // available)
+            let encodedCssFilePath = btoa(textContent(node));
 
-          jsutils.importForSideEffect(
-            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&selector=${dataAttribute}!`
-          );
-          return null;
-        } else {
-          node.attributes.push(builders.attr(dataAttribute, builders.text('')));
-        }
+            jsutils.importForSideEffect(
+              `${cssLoaders}glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&selector=${dataAttribute}!`
+            );
+            return null;
+          } else {
+            node.attributes.push(
+              builders.attr(dataAttribute, builders.text(''))
+            );
+          }
+        },
       },
-    },
+    };
   };
-};
 
-export default scopedCSSTransform;
+  return scopedCSSTransform;
+}
 
 function textContent(node: ASTv1.ElementNode): string {
   let textChildren = node.children.filter(

@@ -1,13 +1,13 @@
-import plugin from './ast-transform';
+import pluginGenerator from './ast-transform';
 
-export function installScopedCSS(registry: any) {
-  registry.add('htmlbars-ast-plugin', buildASTPlugin());
+export function installScopedCSS(registry: any, cssLoaders?: string) {
+  registry.add('htmlbars-ast-plugin', buildASTPlugin(cssLoaders));
 }
 
-export function buildASTPlugin() {
+export function buildASTPlugin(cssLoaders?: string) {
   return {
     name: 'glimmer-scoped-css',
-    plugin,
+    plugin: pluginGenerator(cssLoaders),
     baseDir: function () {
       return __dirname;
     },
