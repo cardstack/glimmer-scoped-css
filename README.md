@@ -58,6 +58,73 @@ This is an alpha release with several limitations:
 ember install glimmer-scoped-css
 ```
 
+1. Include in `ember-cli-build.js`:
+
+   ```diff
+    const { Webpack } = require('@embroider/webpack');
+   +const { GlimmerScopedCSSWebpackPlugin } = require('glimmer-scoped-css/webpack');
+    return require('@embroider/compat').compatBuild(app, Webpack, {
+   +  packagerOptions: {
+   +    webpackConfig: {
+   +      plugins: [new GlimmerScopedCSSWebpackPlugin()],
+   +      resolveLoader: {
+   +        alias: {
+   +          'glimmer-scoped-css/virtual-loader': require.resolve(
+   +            'glimmer-scoped-css/virtual-loader'
+   +          ),
+   +        },
+   +      },
+   +    },
+   +  },
+    });
+   ```
+
+2. Add an in-repo addon to install the Handlebars preprocessor:
+
+   In `package.json`:
+
+   ```diff
+    "ember": {
+      "edition": "octane"
+   +},
+   +"ember-addon": {
+   +  "paths": [
+   +    "lib/setup-ast-transforms"
+   +  ]
+    }
+   ```
+
+   Add `lib/setup-ast-transforms/package.json`:
+
+   ```
+   {
+     "name": "setup-ast-transforms",
+     "keywords": [
+       "ember-addon"
+     ],
+     "dependencies": {
+       "glimmer-scoped-css": "*"
+     }
+   }
+   ```
+
+   Add `lib/setup-ast-transforms/index.js`:
+
+   ```
+    'use strict';
+
+    const { installScopedCSS } = require('glimmer-scoped-css');
+
+    module.exports = {
+      name: require('./package').name,
+      setupPreprocessorRegistry(type, registry) {
+        if (type === 'parent') {
+          installScopedCSS(registry);
+        }
+      },
+    };
+   ```
+
 ## Usage
 
 [Longer description of how to use the addon in apps.]
