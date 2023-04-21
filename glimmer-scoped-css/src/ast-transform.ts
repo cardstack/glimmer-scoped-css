@@ -43,7 +43,13 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           );
           return null;
         } else {
-          node.attributes.push(builders.attr(dataAttribute, builders.text('')));
+          if (node.tag.startsWith(':')) {
+            return node;
+          } else {
+            node.attributes.push(
+              builders.attr(dataAttribute, builders.text(''))
+            );
+          }
         }
       },
     },
