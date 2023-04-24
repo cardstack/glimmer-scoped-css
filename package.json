@@ -1,26 +1,105 @@
 {
   "name": "glimmer-scoped-css",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.4",
+  "description": "The default blueprint for Embroider v2 addons.",
+  "keywords": [],
   "repository": "",
   "license": "MIT",
   "author": "",
-  "scripts": {
-    "prepare": "pnpm build",
-    "build": "pnpm --filter glimmer-scoped-css build",
-    "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
-    "start:tests": "pnpm --filter test-app start",
-    "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
-    "test": "pnpm --filter test-app test",
-    "lint": "pnpm --filter '*' lint",
-    "lint:fix": "pnpm --filter '*' lint:fix"
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@embroider/addon-shim": "1.8.4-unstable.72d5a8e",
+    "js-string-escape": "^1.0.1",
+    "postcss": "^8.4.21",
+    "postcss-selector-parser": "^6.0.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.17.0",
+    "@babel/plugin-syntax-decorators": "^7.17.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.20.11",
+    "@babel/preset-typescript": "^7.18.6",
+    "@embroider/addon-dev": "3.0.0-unstable.72d5a8e",
+    "@glimmer/reference": "^0.84.2",
+    "@glimmer/syntax": "^0.84.2",
+    "@glint/core": "^0.9.7",
+    "@glint/environment-ember-loose": "^0.9.7",
+    "@rspack/core": "^0.1.1",
+    "@tsconfig/ember": "^1.0.0",
+    "@types/babel__core": "^7.17.0",
+    "@types/babel__traverse": "^7.17.0",
+    "@types/ember": "^4.0.0",
+    "@types/ember__application": "^4.0.0",
+    "@types/ember__array": "^4.0.0",
+    "@types/ember__component": "^4.0.0",
+    "@types/ember__controller": "^4.0.0",
+    "@types/ember__debug": "^4.0.0",
+    "@types/ember__engine": "^4.0.0",
+    "@types/ember__error": "^4.0.0",
+    "@types/ember__object": "^4.0.0",
+    "@types/ember__polyfills": "^4.0.0",
+    "@types/ember__routing": "^4.0.0",
+    "@types/ember__runloop": "^4.0.0",
+    "@types/ember__service": "^4.0.0",
+    "@types/ember__string": "^3.16.0",
+    "@types/ember__template": "^4.0.0",
+    "@types/ember__test": "^4.0.0",
+    "@types/ember__utils": "^4.0.0",
+    "@types/js-string-escape": "^1.0.1",
+    "@types/node": "^18.13.0",
+    "@types/watchpack": "^2.4.1",
+    "@types/webpack-sources": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "babel-plugin-ember-template-compilation": "^2.0.0",
     "concurrently": "^7.2.1",
-    "prettier": "^2.5.1"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-ember": "^10.5.8",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "rollup": "^2.67.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-ts": "^3.0.2",
+    "typescript": "^4.7.4",
+    "vite": "^4.2.1",
+    "webpack": "^5.75.0"
   },
-  "workspaces": [
-    "glimmer-scoped-css",
-    "test-app"
-  ]
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "ember-addon": {
+    "app-js": {}
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "lint": "concurrently 'npm:lint:*(!fix)' --names 'lint:'",
+    "lint:fix": "concurrently 'npm:lint:*:fix' --names 'fix:'",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "lint:types": "glint",
+    "start": "rollup --config --watch",
+    "test": "echo 'A v2 addon does not have tests, run tests in test-app'"
+  }
 }
