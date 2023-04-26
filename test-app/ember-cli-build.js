@@ -5,24 +5,6 @@ const { GlimmerScopedCSSWebpackPlugin } = require('glimmer-scoped-css/webpack');
 
 const webpackConfig = {
   plugins: [new GlimmerScopedCSSWebpackPlugin()],
-  module: {
-    rules: [
-      // {
-      //   test(filename) {
-      //     return filename.startsWith('glimmer-scoped-css/');
-      //   },
-      //   use: [
-      //     {
-      //       loader: 'style-loader',
-      //       options: {},
-      //     },
-      //     {
-      //       loader: 'glimmer-scoped-css/virtual-loader',
-      //     },
-      //   ],
-      // },
-    ],
-  },
   resolveLoader: {
     alias: {
       'glimmer-scoped-css/virtual-loader': require.resolve(
