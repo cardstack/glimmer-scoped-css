@@ -1,26 +1,52 @@
 {
   "name": "glimmer-scoped-css",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cardstack/glimmer-scoped-css.git"
+  },
   "license": "MIT",
-  "author": "",
-  "scripts": {
-    "prepare": "pnpm build",
-    "build": "pnpm --filter glimmer-scoped-css build",
-    "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
-    "start:tests": "pnpm --filter test-app start",
-    "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
-    "test": "pnpm --filter test-app test",
-    "lint": "pnpm --filter '*' lint",
-    "lint:fix": "pnpm --filter '*' lint:fix"
-  },
-  "devDependencies": {
-    "concurrently": "^7.2.1",
-    "prettier": "^2.5.1"
-  },
+  "author": "Edward Faulkner <edward@eaf4.com>",
   "workspaces": [
     "glimmer-scoped-css",
     "test-app"
-  ]
+  ],
+  "scripts": {
+    "build": "pnpm --filter glimmer-scoped-css build",
+    "lint": "pnpm --filter '*' lint",
+    "lint:fix": "pnpm --filter '*' lint:fix",
+    "prepare": "pnpm build",
+    "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
+    "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
+    "start:tests": "pnpm --filter test-app start",
+    "test": "pnpm --filter test-app test"
+  },
+  "devDependencies": {
+    "@release-it-plugins/lerna-changelog": "^5.0.0",
+    "@release-it-plugins/workspaces": "^3.2.0",
+    "concurrently": "^7.2.1",
+    "prettier": "^2.5.1",
+    "release-it": "^15.5.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "release-it": {
+    "plugins": {
+      "@release-it-plugins/lerna-changelog": {
+        "infile": "CHANGELOG.md",
+        "launchEditor": true
+      },
+      "@release-it-plugins/workspaces": true
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_AUTH"
+    },
+    "npm": false
+  }
 }
