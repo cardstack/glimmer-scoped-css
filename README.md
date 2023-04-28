@@ -51,7 +51,7 @@ This is an alpha release with several limitations:
 ## Compatibility
 
 - Ember.js v3.28 or above
-- Embroider or ember-auto-import v2
+- Embroider
 
 ## Installation
 
