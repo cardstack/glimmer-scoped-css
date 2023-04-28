@@ -36,7 +36,7 @@ Nested components only have the parent component’s styles on elements with `..
 
 ## :rotating_light: Limitations
 
-This is an alpha release with several limitations:
+This is a pre-1.0 release with several limitations:
 
 - it requires an unstable Embroider build (at least `2.1.1-unstable.72d5a8e`)
 - it assumes a Webpack build
