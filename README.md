@@ -80,6 +80,8 @@ ember install glimmer-scoped-css
     });
    ```
 
+### In an Ember application
+
 2. Add an in-repo addon to install the Handlebars preprocessor:
 
    In `package.json`:
@@ -125,6 +127,28 @@ ember install glimmer-scoped-css
       },
     };
    ```
+
+### In an Ember addon
+
+2. Install the preprocessor directly in the addon’s `index.js`:
+
+   ```diff
+    'use strict'
+   +const { installScopedCSS } = require('glimmer-scoped-css');
+
+    module.exports = {
+      name: require('./package').name,
+      isDevelopingAddon() {
+        return true;
+      },
+   +  setupPreprocessorRegistry(type, registry) {
+   +    if (type === 'self') {
+   +      installScopedCSS(registry);
+   +    }
+   +  },
+    };
+   ```
+
 
 ## Usage
 
