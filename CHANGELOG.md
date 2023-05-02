@@ -1,5 +1,15 @@
 
 
+
+## v0.1.2 (2023-05-02)
+
+#### :house: Internal
+* [#10](https://github.com/cardstack/glimmer-scoped-css/pull/10) Update lockfile ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+
 ## v0.1.1 (2023-05-02)
 
 #### :memo: Documentation
