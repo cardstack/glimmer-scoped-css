@@ -4,7 +4,7 @@ import type {
   ASTv1,
 } from '@glimmer/syntax';
 import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
-import crypto from 'node:crypto';
+import { md5 } from 'super-fast-md5';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -14,9 +14,7 @@ type Env = WithJSUtils<ASTPluginEnvironment> & {
 };
 
 function uniqueIdentifier(filename: string): string {
-  let hash = crypto.createHash('sha1');
-  hash.update(filename);
-  return hash.digest('hex').slice(0, 10);
+  return md5(filename).slice(0, 10);
 }
 
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
