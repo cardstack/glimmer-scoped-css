@@ -24,7 +24,8 @@
     "@embroider/addon-shim": "1.8.4-unstable.72d5a8e",
     "js-string-escape": "^1.0.1",
     "postcss": "^8.4.21",
-    "postcss-selector-parser": "^6.0.11"
+    "postcss-selector-parser": "^6.0.11",
+    "super-fast-md5": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
