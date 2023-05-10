@@ -34,7 +34,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           // TODO: hard coding the loader chain means we ignore the other
           // prevailing rules (and we're even assuming these loaders are
           // available)
-          let encodedCssFilePath = btoa(textContent(node));
+          let encodedCssFilePath = encodeURIComponent(btoa(textContent(node)));
 
           jsutils.importForSideEffect(
             `style-loader!css-loader!glimmer-scoped-css/virtual-loader?file=${encodedCssFilePath}&selector=${dataAttribute}!`

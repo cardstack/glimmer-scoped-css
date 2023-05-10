@@ -29,7 +29,7 @@ export default function virtualLoader(this: LoaderContext<unknown>) {
     );
   }
 
-  let cssSource = atob(cssFile);
+  let cssSource = atob(decodeURIComponent(cssFile));
   let result = postcss([scopedStylesPlugin(cssSelector)]).process(cssSource);
 
   return result.css;
