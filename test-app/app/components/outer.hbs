@@ -1,8 +1,17 @@
 <style>
   p { color: blue; }
 
+  /* This exercises a bug fix related to base64 encoding of CSS */
   p ~ .something, h1 ~ .something {
     display: none;
+  }
+
+  :global(.global) {
+    color: red;
+  }
+
+  div :deep(pre) {
+    color: green;
   }
 </style>
 
@@ -12,6 +21,9 @@
 <p data-test-outer-p>
   Outer p.
 </p>
-<Inner />
+
+<div>
+  <Inner />
+</div>
 
 {{yield to="block"}}

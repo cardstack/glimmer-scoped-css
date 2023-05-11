@@ -34,6 +34,46 @@ p[data-scopedcss-53259f1da9] {
 
 Nested components only have the parent component’s styles on elements with `...attributes`. You can see this in action in `test-app`.
 
+## Additional features
+
+The implementation is adapted from a [Vue PostCSS plugin](https://github.com/vuejs/core/blob/c346af2b6aa1c2796818405b4a960fc5c571594e/packages/compiler-sfc/src/stylePluginScoped.ts). It also supports these pseudo-elements:
+
+### `:global`
+
+If you want to use CSS in your component but want a selector to not be scoped, you can use `:global`:
+
+```css
+:global(.red) {
+  color: red;
+}
+```
+
+The generated CSS will look like this:
+
+```css
+.red {
+  color: red;
+}
+```
+
+### `:deep`
+
+Using `:deep` on a selector will attach the scoping attribute to the element selector before it.
+
+```css
+.a :deep(.b) {
+  color: pink;
+}
+```
+
+The generated CSS will look like this:
+
+```css
+.a[data-scopedcss-3afb00313e] .b {
+  color: pink;
+}
+```
+
 ## :rotating_light: Limitations
 
 This is a pre-1.0 release with several limitations:
