@@ -81,4 +81,20 @@ module('Acceptance | scoped css', function (hooks) {
       color: 'rgb(0, 0, 255)',
     });
   });
+
+  test('a block can be made non-scoped with the :global pseudo-class', async function (assert) {
+    await visit('/');
+
+    assert.dom('[data-test-global-p]').hasStyle({
+      color: 'rgb(255, 0, 0)',
+    });
+  });
+
+  test('the scope attribute can be attached to the penultimate element with the :deep pseudo-class', async function (assert) {
+    await visit('/');
+
+    assert.dom('[data-test-inner-pre]').hasStyle({
+      color: 'rgb(0, 128, 0)',
+    });
+  });
 });
