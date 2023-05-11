@@ -40,7 +40,7 @@ const scopedPlugin: PluginCreator<string> = (id = '') => {
   const shortId = id.replace(/^data-v-/, '')
 
   return {
-    postcssPlugin: 'vue-sfc-scoped',
+    postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
       processRule(id, rule)
     },
