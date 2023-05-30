@@ -78,7 +78,6 @@ The generated CSS will look like this:
 
 This is a pre-1.0 release with several limitations:
 
-- it requires an unstable Embroider build (at least `2.1.1-unstable.72d5a8e`)
 - it assumes a Webpack build
 - it hardcodes Webpack CSS loaders
   - this works fine when you have the default loaders configured by `@embroider/webpack`
@@ -91,7 +90,7 @@ This is a pre-1.0 release with several limitations:
 ## Compatibility
 
 - Ember.js v3.28 or above
-- Embroider
+- Embroider v3.0.0 or above
 
 ## Installation
 
