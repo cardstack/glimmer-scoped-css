@@ -194,6 +194,19 @@ ember install glimmer-scoped-css
 
 Add a `<style>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
 
+## Troubleshooting
+
+### `node/no-missing-require` lint errors
+
+```
+Error:    6:51  error  "glimmer-scoped-css/webpack" is not found         node/no-missing-require
+Error:   51:13  error  "glimmer-scoped-css/virtual-loader" is not found  node/no-missing-require
+```
+
+The `eslint-plugin-node` package that produces this error doesn’t understand the `exports` structure supported by newer Node versions and is unmaintained. Ember CLI has [moved](https://github.com/ember-cli/ember-cli/issues/10055) to using `eslint-plugin-n` as a drop-in replacement as of 4.10.
+
+Changing to `eslint-plugin-n` and [updating the lint configuration](https://github.com/ember-cli/ember-cli/pull/10060/files#diff-042c163c37338253d4a1cc6bf038fb8b4b45eebef94ebbd439a81c38b158dcb6) fixes these errors.
+
 ## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
