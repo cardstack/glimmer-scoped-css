@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true
+  },
   "extends": "@tsconfig/ember/tsconfig.json",
   "include": ["src/**/*", "unpublished-development-types/**/*"],
   "glint": {
