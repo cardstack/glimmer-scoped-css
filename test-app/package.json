@@ -29,7 +29,7 @@
     "@ember/test-helpers": "^2.9.3",
     "@embroider/compat": "^3.0.0",
     "@embroider/core": "^3.0.0",
-    "@embroider/test-setup": "^3.0.0",
+    "@embroider/test-setup": "^3.0.1",
     "@embroider/webpack": "^3.0.0",
     "@glimmer/component": "^1.1.2",
     "@tsconfig/ember": "^2.0.0",
