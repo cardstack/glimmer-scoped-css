@@ -41,30 +41,21 @@ importers:
       '@babel/core':
         specifier: ^7.17.0
         version: 7.17.0(supports-color@8.1.1)
-      '@babel/plugin-proposal-async-generator-functions':
-        specifier: ^7.20.7
-        version: 7.20.7(@babel/core@7.17.0)
       '@babel/plugin-proposal-class-properties':
         specifier: ^7.16.7
         version: 7.16.7(@babel/core@7.17.0)
       '@babel/plugin-proposal-decorators':
         specifier: ^7.17.0
         version: 7.17.0(@babel/core@7.17.0)
-      '@babel/plugin-proposal-json-strings':
-        specifier: ^7.18.6
-        version: 7.18.6(@babel/core@7.17.0)
-      '@babel/plugin-proposal-object-rest-spread':
-        specifier: ^7.20.7
-        version: 7.20.7(@babel/core@7.17.0)
-      '@babel/plugin-proposal-optional-catch-binding':
-        specifier: ^7.18.6
-        version: 7.18.6(@babel/core@7.17.0)
       '@babel/plugin-syntax-decorators':
         specifier: ^7.17.0
         version: 7.17.0(@babel/core@7.17.0)
       '@babel/plugin-transform-modules-commonjs':
         specifier: ^7.20.11
         version: 7.20.11(@babel/core@7.17.0)
+      '@babel/preset-env':
+        specifier: ^7.22.4
+        version: 7.22.4(@babel/core@7.17.0)
       '@babel/preset-typescript':
         specifier: ^7.18.6
         version: 7.18.6(@babel/core@7.17.0)
@@ -196,7 +187,7 @@ importers:
         version: 3.4.0
       rollup-plugin-ts:
         specifier: ^3.0.2
-        version: 3.0.2(@babel/core@7.17.0)(@babel/preset-typescript@7.18.6)(rollup@2.67.0)(typescript@4.9.5)
+        version: 3.0.2(@babel/core@7.17.0)(@babel/preset-env@7.22.4)(@babel/preset-typescript@7.18.6)(rollup@2.67.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.7.4
         version: 4.9.5
@@ -880,21 +871,6 @@ packages:
       '@babel/plugin-transform-optional-chaining': 7.22.3(@babel/core@7.22.1)
     dev: true
 
-  /@babel/plugin-proposal-async-generator-functions@7.20.7(@babel/core@7.17.0):
-    resolution: {integrity: sha512-xMbiLsn/8RK7Wq7VeVytytS2L6qE69bXPB10YCmMdDZbKF4okCqY74pI/jJQ/8U0b/F6NrT2+14b8/P9/3AMGA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.17.0(supports-color@8.1.1)
-      '@babel/helper-environment-visitor': 7.22.1
-      '@babel/helper-plugin-utils': 7.21.5
-      '@babel/helper-remap-async-to-generator': 7.18.9(@babel/core@7.17.0)
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.17.0)
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@babel/plugin-proposal-class-properties@7.16.7(@babel/core@7.17.0):
     resolution: {integrity: sha512-IobU0Xme31ewjYOShSIqd/ZGM/r/cuOz2z0MDbNrhF5FW+ZVgi0f2lyeoj9KFPDOAqsYxmLWZte1WOwlvY9aww==}
     engines: {node: '>=6.9.0'}
@@ -951,42 +927,6 @@ packages:
       charcodes: 0.2.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@babel/plugin-proposal-json-strings@7.18.6(@babel/core@7.17.0):
-    resolution: {integrity: sha512-lr1peyn9kOdbYc0xr0OdHTZ5FMqS6Di+H0Fz2I/JwMzGmzJETNeOFq2pBySw6X/KFL5EWDjlJuMsUGRFb8fQgQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.17.0(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.21.5
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.17.0)
-    dev: true
-
-  /@babel/plugin-proposal-object-rest-spread@7.20.7(@babel/core@7.17.0):
-    resolution: {integrity: sha512-d2S98yCiLxDVmBmE8UjGcfPvNEUbA1U5q5WxaWFUGRzJSVAZqm5W6MbPct0jxnegUZ0niLeNX+IOzEs7wYg9Dg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/compat-data': 7.22.3
-      '@babel/core': 7.17.0(supports-color@8.1.1)
-      '@babel/helper-compilation-targets': 7.22.1(@babel/core@7.17.0)
-      '@babel/helper-plugin-utils': 7.21.5
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.17.0)
-      '@babel/plugin-transform-parameters': 7.22.3(@babel/core@7.17.0)
-    dev: true
-
-  /@babel/plugin-proposal-optional-catch-binding@7.18.6(@babel/core@7.17.0):
-    resolution: {integrity: sha512-Q40HEhs9DJQyaZfUjjn6vE8Cv4GmMHCYuMGIWUnlxH6400VGxOuwWsPt4FxXxJkC/5eOzgn0z21M9gMT4MOhbw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.17.0(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.21.5
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.17.0)
     dev: true
 
   /@babel/plugin-proposal-private-methods@7.18.6(@babel/core@7.17.0):
@@ -15170,7 +15110,7 @@ packages:
       del: 5.1.0
     dev: true
 
-  /rollup-plugin-ts@3.0.2(@babel/core@7.17.0)(@babel/preset-typescript@7.18.6)(rollup@2.67.0)(typescript@4.9.5):
+  /rollup-plugin-ts@3.0.2(@babel/core@7.17.0)(@babel/preset-env@7.22.4)(@babel/preset-typescript@7.18.6)(rollup@2.67.0)(typescript@4.9.5):
     resolution: {integrity: sha512-67qi2QTHewhLyKDG6fX3jpohWpmUPPIT/xJ7rsYK46X6MqmoWy64Ti0y8ygPfLv8mXDCdRZUofM3mTxDfCswRA==}
     engines: {node: '>=14.9.0', npm: '>=7.0.0', pnpm: '>=3.2.0', yarn: '>=1.13'}
     peerDependencies:
@@ -15200,6 +15140,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.17.0(supports-color@8.1.1)
+      '@babel/preset-env': 7.22.4(@babel/core@7.17.0)
       '@babel/preset-typescript': 7.18.6(@babel/core@7.17.0)
       '@rollup/pluginutils': 4.2.1
       '@wessberg/stringutil': 1.0.19
