@@ -1,6 +1,23 @@
 
 
 
+
+## v0.2.0 (2023-06-06)
+
+#### :rocket: Enhancement
+* [#15](https://github.com/cardstack/glimmer-scoped-css/pull/15) Update with released Embroider versions ([@backspace](https://github.com/backspace))
+
+#### :bug: Bug Fix
+* [#17](https://github.com/cardstack/glimmer-scoped-css/pull/17) Add resourcePath to fix source map bug ([@backspace](https://github.com/backspace))
+* [#12](https://github.com/cardstack/glimmer-scoped-css/pull/12) Fix bug with incorrectly-encoded CSS ([@backspace](https://github.com/backspace))
+
+#### :memo: Documentation
+* [#14](https://github.com/cardstack/glimmer-scoped-css/pull/14) Add documentation on resolving no-missing-require ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+
 ## v0.1.2 (2023-05-02)
 
 #### :house: Internal
