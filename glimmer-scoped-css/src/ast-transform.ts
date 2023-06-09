@@ -5,6 +5,8 @@ import type {
 } from '@glimmer/syntax';
 import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
 import { md5 } from 'super-fast-md5';
+import postcss from 'postcss';
+import scopedStylesPlugin from './postcss-plugin';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -31,13 +33,18 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     visitor: {
       ElementNode(node) {
         if (node.tag === 'style') {
+          let inputCSS = textContent(node);
+          let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
+            inputCSS
+          ).css;
+
           // TODO: hard coding the loader chain means we ignore the other
           // prevailing rules (and we're even assuming these loaders are
           // available)
-          let encodedCss = encodeURIComponent(btoa(textContent(node)));
+          let encodedCss = encodeURIComponent(btoa(outputCSS));
 
           jsutils.importForSideEffect(
-            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?path=${env.filename}&css=${encodedCss}&selector=${dataAttribute}!`
+            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?path=${env.filename}&css=${encodedCss}!`
           );
           return null;
         } else {
