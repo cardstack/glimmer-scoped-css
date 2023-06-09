@@ -1,6 +1,5 @@
 import { LoaderContext } from 'webpack';
-import postcss from 'postcss';
-import scopedStylesPlugin from './postcss-plugin';
+import { decodeScopedCSSRequest } from '.';
 
 export default function virtualLoader(this: LoaderContext<unknown>) {
   let optionsString = this.loaders[this.loaderIndex]?.options;
@@ -13,34 +12,14 @@ export default function virtualLoader(this: LoaderContext<unknown>) {
 
   let options = new URLSearchParams(optionsString);
 
-  let encodedCss = options.get('css');
+  let filename = options.get('filename');
 
-  if (!encodedCss) {
+  if (!filename) {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader missing file parameter: ${optionsString}`
+      `glimmer-scoped-css/src/virtual-loader missing filename parameter: ${optionsString}`
     );
   }
 
-  let cssSelector = options.get('selector');
-
-  if (!cssSelector) {
-    throw new Error(
-      `glimmer-scoped-css/src/virtual-loader missing selector parameter: ${optionsString}`
-    );
-  }
-
-  let path = options.get('path');
-
-  if (!path) {
-    throw new Error(
-      `glimmer-scoped-css/src/virtual-loader missing path parameter: ${optionsString}`
-    );
-  }
-
-  let cssSource = atob(decodeURIComponent(encodedCss));
-  let result = postcss([scopedStylesPlugin(cssSelector)]).process(cssSource);
-
-  this.resourcePath = path;
-
-  return result.css;
+  this.resourcePath = filename;
+  return decodeScopedCSSRequest(filename);
 }
