@@ -188,10 +188,15 @@ ember install glimmer-scoped-css
     };
    ```
 
-
 ## Usage
 
 Add a `<style>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
+
+## Architecture
+
+glimmer-scoped-css consists of two parts. The first part is an AST transform that takes as input your `<style>` tags inside handlebars and emits as output specially crafted import statements that account for that scoped CSS.
+
+The second part is a plugin for your current environment (by default, webpack) that satisfies the specially-crafted import statements by turning them into CSS. To implement a new plugin, you should use `import { isScopedCSSRequest, decodeScopedCSSRequest } from 'glimmer-scoped-css'` to identify these imports and turn them back into CSS, respectively.
 
 ## Troubleshooting
 

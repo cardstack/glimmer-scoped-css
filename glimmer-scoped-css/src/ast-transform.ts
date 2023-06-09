@@ -7,6 +7,7 @@ import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
 import { md5 } from 'super-fast-md5';
 import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
+import { basename } from 'path';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -44,7 +45,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           let encodedCss = encodeURIComponent(btoa(outputCSS));
 
           jsutils.importForSideEffect(
-            `style-loader!css-loader!glimmer-scoped-css/virtual-loader?path=${env.filename}&css=${encodedCss}!`
+            `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
           );
           return null;
         } else {

@@ -18,3 +18,17 @@ export function buildASTPlugin() {
     },
   };
 }
+
+export function isScopedCSSRequest(request: string): boolean {
+  return request.endsWith('.glimmer-scoped.css');
+}
+
+const pattern = /\.([^.]*)\.glimmer-scoped.css$/;
+
+export function decodeScopedCSSRequest(request: string): string {
+  let m = pattern.exec(request);
+  if (!m) {
+    throw new Error(`not a scoped CSS request: ${request}`);
+  }
+  return atob(decodeURIComponent(m[1]!));
+}
