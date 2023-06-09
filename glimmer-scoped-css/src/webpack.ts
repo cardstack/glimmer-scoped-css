@@ -31,7 +31,6 @@ export class GlimmerScopedCSSWebpackPlugin {
         { name: 'glimmer-scoped-css' },
         (state: unknown, callback: CB) => {
           if (isRelevantRequest(state) && isScopedCSSRequest(state.request)) {
-            console.log(`SAW request ${state.request}`);
             state.request = `style-loader!css-loader!glimmer-scoped-css/virtual-loader?filename=${resolve(
               dirname(state.contextInfo.issuer),
               state.request
