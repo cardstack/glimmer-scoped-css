@@ -3,7 +3,7 @@ import { resolve, dirname } from 'path';
 import { isScopedCSSRequest } from '.';
 
 type CB = (err: null | Error, result?: Module | undefined) => void;
-export const virtualLoaderName = 'glimmer-scoped-css';
+export const virtualLoaderName = 'glimmer-scoped-css/virtual-loader';
 
 export class GlimmerScopedCSSWebpackPlugin {
   private addLoaderAlias(compiler: Compiler, name: string, alias: string) {
