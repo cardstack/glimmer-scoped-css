@@ -2,6 +2,16 @@
 
 
 
+
+## v0.3.0 (2023-06-12)
+
+#### :rocket: Enhancement
+* [#18](https://github.com/cardstack/glimmer-scoped-css/pull/18) Split generic and webpack-specific parts ([@ef4](https://github.com/ef4))
+
+#### Committers: 2
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+
+
 ## v0.2.0 (2023-06-06)
 
 #### :rocket: Enhancement
