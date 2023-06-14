@@ -3,6 +3,16 @@
 
 
 
+
+## v0.3.1 (2023-06-14)
+
+#### :bug: Bug Fix
+* [#19](https://github.com/cardstack/glimmer-scoped-css/pull/19) Fix virtual loader name ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+
 ## v0.3.0 (2023-06-12)
 
 #### :rocket: Enhancement

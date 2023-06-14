@@ -394,7 +394,7 @@ importers:
         specifier: ^7.3.4
         version: 7.3.4(eslint@8.42.0)
       glimmer-scoped-css:
-        specifier: ^0.3.0
+        specifier: ^0.3.1
         version: link:../glimmer-scoped-css
       loader.js:
         specifier: ^4.7.0
