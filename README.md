@@ -108,13 +108,6 @@ ember install glimmer-scoped-css
    +  packagerOptions: {
    +    webpackConfig: {
    +      plugins: [new GlimmerScopedCSSWebpackPlugin()],
-   +      resolveLoader: {
-   +        alias: {
-   +          'glimmer-scoped-css/virtual-loader': require.resolve(
-   +            'glimmer-scoped-css/virtual-loader'
-   +          ),
-   +        },
-   +      },
    +    },
    +  },
     });
@@ -205,7 +198,6 @@ The second part is a plugin for your current environment (by default, webpack) t
 
 ```
 Error:    6:51  error  "glimmer-scoped-css/webpack" is not found         node/no-missing-require
-Error:   51:13  error  "glimmer-scoped-css/virtual-loader" is not found  node/no-missing-require
 ```
 
 The `eslint-plugin-node` package that produces this error doesn’t understand the `exports` structure supported by newer Node versions and is unmaintained. Ember CLI has [moved](https://github.com/ember-cli/ember-cli/issues/10055) to using `eslint-plugin-n` as a drop-in replacement as of 4.10.
