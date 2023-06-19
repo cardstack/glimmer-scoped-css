@@ -4,6 +4,16 @@
 
 
 
+
+## v0.3.2 (2023-06-19)
+
+#### :rocket: Enhancement
+* [#20](https://github.com/cardstack/glimmer-scoped-css/pull/20) Add ast-transform entrypoint ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+
 ## v0.3.1 (2023-06-14)
 
 #### :bug: Bug Fix
