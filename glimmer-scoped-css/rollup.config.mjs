@@ -15,7 +15,12 @@ export default {
   plugins: [
     // These are the modules that users should be able to import from your
     // addon. Anything not listed here may get optimized away.
-    addon.publicEntrypoints(['index.js', 'webpack.js', 'virtual-loader.js']),
+    addon.publicEntrypoints([
+      'index.js',
+      'ast-transform.js',
+      'webpack.js',
+      'virtual-loader.js',
+    ]),
 
     // compile TypeScript to latest JavaScript, including Babel transpilation
     typescript({
