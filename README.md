@@ -184,7 +184,7 @@ ember install glimmer-scoped-css
 
 ## Usage
 
-Add a `<style>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
+Add a top-level `<style>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports). Nested `<style>` elements are not supported.
 
 ## Architecture
 
