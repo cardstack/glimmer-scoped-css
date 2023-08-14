@@ -19,15 +19,15 @@ If you have `app/components/something.hbs`:
 you get this generated HTML:
 
 ```html
-<h1 data-scopedcss-58ccb4dfe0>An h1</h1>
+<h1 data-scopedcss-58ccb4dfe0-e9125e9996>An h1</h1>
 
-<p data-scopedcss-58ccb4dfe0>A p.</p>
+<p data-scopedcss-58ccb4dfe0-e9125e9996>A p.</p>
 ```
 
 and this generated CSS:
 
 ```css
-p[data-scopedcss-53259f1da9] {
+p[data-scopedcss-58ccb4dfe0-e9125e9996] {
   color: blue;
 }
 ```
@@ -84,7 +84,7 @@ This is a pre-1.0 release with several limitations:
 - the styles are in a `style` element in `index.html`, not linked
 - there is log noise about source maps like this:
   ```
-  unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9"
+  unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9-58ccb4dfe0"
   ```
 - An open [prettier issue](https://github.com/prettier/prettier/issues/14261) means that if you apply prettier to your handlebars, it will format your CSS in a silly way.
 
