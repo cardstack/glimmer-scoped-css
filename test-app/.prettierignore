@@ -1,3 +1,6 @@
+# GJS with inline styles
+/app/components/multiple.gjs
+
 # unconventional js
 /blueprints/*/files/
 /vendor/
