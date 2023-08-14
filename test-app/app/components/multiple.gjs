@@ -8,6 +8,11 @@ const MultipleInner = <template>
 </template>;
 
 const MultipleOuter = <template>
+  <style>
+    p {
+      font-weight: 900;
+    }
+  </style>
   <p data-test-multiple-outer>Multiple outer</p>
   {{MultipleInner}}
   <style>

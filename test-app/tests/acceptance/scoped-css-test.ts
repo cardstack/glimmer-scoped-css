@@ -77,6 +77,7 @@ module('Acceptance | scoped css', function (hooks) {
 
     assert.dom('[data-test-multiple-outer]').hasStyle({
       'font-style': 'italic',
+      'font-weight': '900',
     });
   });
 
