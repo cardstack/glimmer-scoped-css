@@ -21,7 +21,8 @@ function uniqueIdentifier(filename: string): string {
 }
 
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
-  let dataAttribute = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
+  let dataAttributePrefix = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
+  let currentTemplateStyleHash: string;
 
   let {
     syntax: { builders },
@@ -32,8 +33,30 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     name: 'glimmer-scoped-css',
 
     visitor: {
-      ElementNode(node) {
+      Template(node) {
+        let styleTag = node.body.find(
+          (n) => n.type === 'ElementNode' && n.tag === 'style'
+        );
+
+        if (styleTag) {
+          currentTemplateStyleHash = md5(
+            textContent(styleTag as ASTv1.ElementNode)
+          ).slice(0, 10);
+        }
+
+        return node;
+      },
+      ElementNode(node, walker) {
+        // FIXME how can we know `currentTemplate` is true?
+        let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
+
         if (node.tag === 'style') {
+          // FIXME how to exercise this in tests?
+          if (walker.parent?.node.type !== 'Template') {
+            throw new Error(
+              '<style> tags must be at the root of the template, they cannot be nested'
+            );
+          }
           let inputCSS = textContent(node);
           let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
             inputCSS
@@ -47,14 +70,17 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           jsutils.importForSideEffect(
             `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
           );
+
           return null;
         } else {
           if (node.tag.startsWith(':')) {
             return node;
           } else {
-            node.attributes.push(
-              builders.attr(dataAttribute, builders.text(''))
-            );
+            if (currentTemplateStyleHash) {
+              node.attributes.push(
+                builders.attr(dataAttribute, builders.text(''))
+              );
+            }
           }
         }
       },

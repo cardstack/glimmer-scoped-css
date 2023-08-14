@@ -5,7 +5,7 @@ import { setupApplicationTest } from 'test-app/tests/helpers';
 module('Acceptance | scoped css', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('component elements have scoped CSS selectors', async function (assert) {
+  test('component elements have scoped CSS selectors when their templates have style tags', async function (assert) {
     await visit('/');
 
     assert.strictEqual(currentURL(), '/');
@@ -47,20 +47,10 @@ module('Acceptance | scoped css', function (hooks) {
       throw new Error('[data-test-inner-second-p] element not found');
     }
 
-    const innerComponentScopedCssSelector = Array.from(
-      innerSecondParagraphElement.attributes
-    )
-      .map((attribute) => attribute.localName)
-      .find((attributeName) => attributeName.startsWith('data-scopedcss'));
-
-    if (!innerComponentScopedCssSelector) {
-      throw new Error('Scoped CSS selector not found on [data-test-outer-h1]');
-    }
-
     assert
       .dom('[data-test-inner-first-p]')
       .hasAttribute(
-        innerComponentScopedCssSelector,
+        outerComponentScopedCssSelector,
         '',
         'expected splattributes element within nested component to have its component’s scoped CSS selector'
       );
@@ -79,6 +69,14 @@ module('Acceptance | scoped css', function (hooks) {
 
     assert.dom('[data-test-inner-second-p]').doesNotHaveStyle({
       color: 'rgb(0, 0, 255)',
+    });
+
+    assert.dom('[data-test-multiple-inner]').hasStyle({
+      'font-weight': '700',
+    });
+
+    assert.dom('[data-test-multiple-outer]').hasStyle({
+      'font-style': 'italic',
     });
   });
 
