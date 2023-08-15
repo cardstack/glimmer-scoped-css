@@ -33,6 +33,8 @@ jobs:
         run: pnpm lint
       - name: Run Tests
         run: pnpm test
+      - name: Run Build Failure Test
+        run: pnpm test-build-failure
 
   floating:
     name: "Floating Dependencies"
@@ -52,6 +54,8 @@ jobs:
         run: pnpm install --no-lockfile
       - name: Run Tests
         run: pnpm test
+      - name: Run Build Failure Test
+        run: pnpm test-build-failure
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}

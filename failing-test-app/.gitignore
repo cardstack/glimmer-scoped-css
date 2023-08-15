@@ -1,9 +1,4 @@
-# GJS with inline styles
-/app/components/multiple.gjs
-
-# unconventional js
-/blueprints/*/files/
-/vendor/
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
 /dist/
@@ -14,10 +9,16 @@
 /node_modules/
 
 # misc
+/.env*
+/.pnp*
+/.sass-cache
+/.eslintcache
+/connect.lock
 /coverage/
-!.*
-.eslintcache
-.lint-todo/
+/libpeerconnection.log
+/npm-debug.log*
+/testem.log
+/yarn-error.log
 
 # ember-try
 /.node_modules.ember-try/
@@ -26,3 +27,6 @@
 /package.json.ember-try
 /package-lock.json.ember-try
 /yarn.lock.ember-try
+
+# broccoli-debug
+/DEBUG/
