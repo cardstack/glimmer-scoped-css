@@ -216,8 +216,8 @@ importers:
         specifier: ^7.3.4
         version: 7.3.4(eslint@8.42.0)
       glimmer-scoped-css:
-        specifier: ^0.3.2
-        version: 0.3.2
+        specifier: ^0.4.0
+        version: link:../glimmer-scoped-css
       loader.js:
         specifier: ^4.7.0
         version: 4.7.0
@@ -11019,18 +11019,6 @@ packages:
       git-up: 7.0.0
     dev: true
 
-  /glimmer-scoped-css@0.3.2:
-    resolution: {integrity: sha512-DW8LyfbH1XUMgswPxXJOl3b/bMNZ6UjbYeWSoiALHFRsIeTZgf0oYgSrzxTX/QArMvuLn42O2UbZ9trwZRD6LQ==}
-    dependencies:
-      '@embroider/addon-shim': 1.8.5
-      js-string-escape: 1.0.1
-      postcss: 8.4.24
-      postcss-selector-parser: 6.0.13
-      super-fast-md5: 1.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -15873,6 +15861,7 @@ packages:
 
   /super-fast-md5@1.0.1:
     resolution: {integrity: sha512-23gjjbcKnoetT/JX7FDerRo1m1dmo+tVjjwSUmm4xKNX4acAoa0juiYBdW4QANyC/tqj0vP4dZhGIT7L5YYm3Q==}
+    dev: false
 
   /supports-color@2.0.0:
     resolution: {integrity: sha512-KKNVtd6pCYgPIKU4cp2733HWYCpplQhddZLBUryaAHou723x+FRzQ5Df824Fj+IyyuiQTRoub4SnIFfIcrp70g==}

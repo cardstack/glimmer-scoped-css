@@ -9,6 +9,7 @@
   "license": "MIT",
   "author": "Edward Faulkner <edward@eaf4.com>",
   "workspaces": [
+    "failing-test-app",
     "glimmer-scoped-css",
     "test-app"
   ],
