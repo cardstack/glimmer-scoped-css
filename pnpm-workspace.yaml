@@ -1,3 +1,4 @@
 packages:
+  - 'failing-test-app'
   - 'glimmer-scoped-css'
   - 'test-app'
