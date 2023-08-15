@@ -5,6 +5,19 @@
 
 
 
+## v0.4.0 (2023-08-15)
+
+#### :rocket: Enhancement
+* [#22](https://github.com/cardstack/glimmer-scoped-css/pull/22) Add support for unscoped attribute ([@backspace](https://github.com/backspace))
+* [#21](https://github.com/cardstack/glimmer-scoped-css/pull/21) Change scoping to per-template ([@backspace](https://github.com/backspace))
+
+#### :bug: Bug Fix
+* [#21](https://github.com/cardstack/glimmer-scoped-css/pull/21) Change scoping to per-template ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+
 ## v0.3.2 (2023-06-19)
 
 #### :rocket: Enhancement
