@@ -14,6 +14,11 @@
     color: green;
   }
 </style>
+<style data-test-unscoped-root-style unscoped>
+  p {
+    text-align: end;
+  }
+</style>
 
 <h1 data-test-outer-h1>
   Outer h1
@@ -24,6 +29,11 @@
 
 <div>
   <Inner />
+  <style unscoped>
+    p {
+      text-transform: uppercase;
+    }
+  </style>
 </div>
 
 {{yield to="block"}}

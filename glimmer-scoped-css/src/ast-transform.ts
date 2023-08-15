@@ -50,6 +50,10 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
 
         if (node.tag === 'style') {
+          if (hasUnscopedAttribute(node)) {
+            return removeUnscopedAttribute(node);
+          }
+
           if (walker.parent?.node.type !== 'Template') {
             throw new Error(
               '<style> tags must be at the root of the template, they cannot be nested'
@@ -93,4 +97,19 @@ function textContent(node: ASTv1.ElementNode): string {
     (c) => c.type === 'TextNode'
   ) as ASTv1.TextNode[];
   return textChildren.map((c) => c.chars).join('');
+}
+
+const UNSCOPED_ATTRIBUTE_NAME = 'unscoped';
+
+function hasUnscopedAttribute(node: ASTv1.ElementNode): boolean {
+  return node.attributes.some(
+    (attribute) => attribute.name === UNSCOPED_ATTRIBUTE_NAME
+  );
+}
+
+function removeUnscopedAttribute(node: ASTv1.ElementNode): ASTv1.ElementNode {
+  node.attributes = node.attributes.filter(
+    (attribute) => attribute.name !== UNSCOPED_ATTRIBUTE_NAME
+  );
+  return node;
 }
