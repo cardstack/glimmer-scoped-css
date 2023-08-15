@@ -54,7 +54,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           // FIXME how to exercise this in tests?
           if (walker.parent?.node.type !== 'Template') {
             throw new Error(
-              '<style> tags must be at the root of the template, they cannot be nested'
+              '<style> tags must be at the root of the template, they cannot be nexsted'
             );
           }
           let inputCSS = textContent(node);
