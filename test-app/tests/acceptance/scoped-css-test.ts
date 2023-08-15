@@ -63,7 +63,7 @@ module('Acceptance | scoped css', function (hooks) {
       .hasAttribute(
         outerComponentScopedCssSelector,
         '',
-        'expected splattributes element within nested component to have its component’s scoped CSS selector'
+        'expected splattributes element within nested component to have its parent component’s scoped CSS selector'
       );
   });
 
