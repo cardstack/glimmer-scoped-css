@@ -92,6 +92,22 @@ module('Acceptance | scoped css', function (hooks) {
     });
   });
 
+  test('unscoped style elements are passed through without the unscoped attribute', async function (assert) {
+    await visit('/');
+
+    assert
+      .dom('[data-test-unscoped-root-style]')
+      .exists()
+      .doesNotHaveAttribute('unscoped');
+
+    assert.dom('style[unscoped]').doesNotExist();
+
+    assert.dom('[data-test-global-p]').hasStyle({
+      'text-align': 'end',
+      'text-transform': 'uppercase',
+    });
+  });
+
   test('a block can be made non-scoped with the :global pseudo-class', async function (assert) {
     await visit('/');
 
