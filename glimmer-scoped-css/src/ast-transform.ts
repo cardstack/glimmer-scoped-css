@@ -47,11 +47,9 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         return node;
       },
       ElementNode(node, walker) {
-        // FIXME how can we know `currentTemplate` is true?
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
 
         if (node.tag === 'style') {
-          // FIXME how to exercise this in tests?
           if (walker.parent?.node.type !== 'Template') {
             throw new Error(
               '<style> tags must be at the root of the template, they cannot be nested'
