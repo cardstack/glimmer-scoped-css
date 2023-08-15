@@ -47,6 +47,17 @@ module('Acceptance | scoped css', function (hooks) {
       throw new Error('[data-test-inner-second-p] element not found');
     }
 
+    const innerComponentScopedCssSelector = Array.from(
+      innerSecondParagraphElement.attributes
+    )
+      .map((attribute) => attribute.localName)
+      .find((attributeName) => attributeName.startsWith('data-scopedcss'));
+
+    assert.notOk(
+      innerComponentScopedCssSelector,
+      'expected [data-test-inner-second-p] to not have scoping attribute'
+    );
+
     assert
       .dom('[data-test-inner-first-p]')
       .hasAttribute(
