@@ -1,5 +1,6 @@
 import { LoaderContext } from 'webpack';
 import { decodeScopedCSSRequest } from '.';
+import { dirname } from 'path';
 
 export default function virtualLoader(this: LoaderContext<unknown>) {
   let optionsString = this.loaders[this.loaderIndex]?.options;
@@ -21,5 +22,7 @@ export default function virtualLoader(this: LoaderContext<unknown>) {
   }
 
   this.resourcePath = filename;
-  return decodeScopedCSSRequest(filename);
+  this.context = dirname(filename);
+
+  return decodeScopedCSSRequest(filename).css;
 }

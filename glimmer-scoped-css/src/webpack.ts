@@ -1,9 +1,10 @@
-import type { Compiler, Module } from 'webpack';
+import type { Compiler, Module, ResolveData } from 'webpack';
 import { resolve, dirname } from 'path';
-import { isScopedCSSRequest } from '.';
+import { decodeScopedCSSRequest, isScopedCSSRequest } from '.';
 
 type CB = (err: null | Error, result?: Module | undefined) => void;
 export const virtualLoaderName = 'glimmer-scoped-css/virtual-loader';
+const virtualLoaderPath = 'glimmer-scoped-css/dist/virtual-loader.js';
 
 export class GlimmerScopedCSSWebpackPlugin {
   private addLoaderAlias(compiler: Compiler, name: string, alias: string) {
@@ -29,12 +30,29 @@ export class GlimmerScopedCSSWebpackPlugin {
     compiler.hooks.normalModuleFactory.tap('glimmer-scoped-css', (nmf) => {
       nmf.hooks.resolve.tapAsync(
         { name: 'glimmer-scoped-css' },
-        (state: unknown, callback: CB) => {
-          if (isRelevantRequest(state) && isScopedCSSRequest(state.request)) {
-            state.request = `style-loader!css-loader!glimmer-scoped-css/virtual-loader?filename=${resolve(
-              dirname(state.contextInfo.issuer),
-              state.request
-            )}!`;
+        (state: ResolveData, callback: CB) => {
+          if (!state.request.startsWith('!')) {
+            if (!state.contextInfo.issuer) {
+              // when the files emitted from our virtual-loader try to import things,
+              // those requests show in webpack as having no issuer. But we can see here
+              // which requests they are and adjust the issuer so they resolve things from
+              // the correct logical place.
+              let filename = identifyVirtualFile(state);
+              if (filename) {
+                state.contextInfo.issuer = filename;
+                state.context = dirname(filename);
+              }
+            }
+
+            if (
+              state.contextInfo.issuer !== '' &&
+              isScopedCSSRequest(state.request)
+            ) {
+              state.request = `style-loader!css-loader!glimmer-scoped-css/virtual-loader?filename=${resolve(
+                dirname(state.contextInfo.issuer),
+                state.request
+              )}!`;
+            }
           }
           callback(null, undefined);
         }
@@ -43,18 +61,26 @@ export class GlimmerScopedCSSWebpackPlugin {
   }
 }
 
-interface RelevantRequest {
-  request: string;
-  context: string;
-  contextInfo: { issuer: string };
-}
+function identifyVirtualFile(state: ResolveData): string | undefined {
+  for (let dep of state.dependencies) {
+    let userRequest = (dep as any)._parentModule?.userRequest as
+      | string
+      | undefined;
 
-function isRelevantRequest(state: any): state is RelevantRequest {
-  return (
-    typeof state.request === 'string' &&
-    typeof state.context === 'string' &&
-    typeof state.contextInfo?.issuer === 'string' &&
-    state.contextInfo.issuer !== '' &&
-    !state.request.startsWith('!')
-  );
+    if (!userRequest?.includes(virtualLoaderPath)) {
+      // early return when our loader can't appear at all
+      return;
+    }
+
+    for (let part of userRequest.split('!')) {
+      let url = new URL(part, 'http://not-a-real-origin');
+      if (url.pathname.endsWith(virtualLoaderPath)) {
+        let filename = url.searchParams.get('filename');
+        if (filename && isScopedCSSRequest(filename)) {
+          let { fromFile } = decodeScopedCSSRequest(filename);
+          return fromFile;
+        }
+      }
+    }
+  }
 }

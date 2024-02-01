@@ -1,5 +1,5 @@
 # GJS with inline styles
-/app/components/multiple.gjs
+/app/components/*.gjs
 
 # unconventional js
 /blueprints/*/files/
