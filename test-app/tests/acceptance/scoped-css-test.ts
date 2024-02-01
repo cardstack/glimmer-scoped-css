@@ -123,4 +123,12 @@ module('Acceptance | scoped css', function (hooks) {
       color: 'rgb(0, 128, 0)',
     });
   });
+
+  test('scoped css can @import another css file', async function (assert) {
+    await visit('/');
+
+    assert.dom('[data-test-uses-an-import]').hasStyle({
+      color: 'rgb(0, 250, 0)',
+    });
+  });
 });
