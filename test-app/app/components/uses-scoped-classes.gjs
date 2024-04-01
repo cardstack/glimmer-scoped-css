@@ -36,7 +36,7 @@ class DynamicallyInsertsElements extends Component {
 };
 
 class InsertChildElementsModifier extends Modifier<ScrollSignature> {
-  modify(element, [], { detailsClass, timeClass, xyz }) {
+  modify(element, _positional, { detailsClass, timeClass, xyz }) {
     let document = element.ownerDocument;
 
     let details = document.createElement('details');
