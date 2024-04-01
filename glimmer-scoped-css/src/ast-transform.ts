@@ -66,6 +66,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               }
             });
           } else if (val.type === 'ConcatStatement') {
+            // example: <div class="x {{@y}} z">
           }
         });
 
