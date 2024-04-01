@@ -1,0 +1,12 @@
+
+
+pnpm add these 
+update ember-babel-cli 8.2.0
+@glimmer/tracking 
+
+
+
+we can essentailly target the items with data scoped 
+but not what is outside of it (but still in the wormhole) 
+
+

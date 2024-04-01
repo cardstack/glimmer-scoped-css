@@ -20,6 +20,7 @@ function uniqueIdentifier(filename: string): string {
   return md5(filename).slice(0, 10);
 }
 
+// data-filenamehash-styletaghash
 const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
   let dataAttributePrefix = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
   let currentTemplateStyleHash: string;
@@ -28,6 +29,8 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     syntax: { builders },
     meta: { jsutils },
   } = env;
+
+  const SCOPED_CSS_CLASS_NAMESPACE = '__-scoped-class';
 
   return {
     name: 'glimmer-scoped-css',
@@ -39,6 +42,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         );
 
         if (styleTag) {
+          // this is the hash
           currentTemplateStyleHash = md5(
             textContent(styleTag as ASTv1.ElementNode)
           ).slice(0, 10);
@@ -48,8 +52,24 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
       },
       ElementNode(node, walker) {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
-
+        // if (node.tag === 'PowerSelect') {
+        node.attributes.forEach((attr) => {
+          let val = attr.value;
+          if (val.type === 'TextNode') {
+            if (val.chars.includes(SCOPED_CSS_CLASS_NAMESPACE)) {
+              val.chars = val.chars.replace(
+                SCOPED_CSS_CLASS_NAMESPACE,
+                dataAttribute
+              );
+              debugger;
+            }
+          } else if (val.type === 'MustacheStatement') {
+          } else if (val.type === 'ConcatStatement') {
+          }
+        });
+        // }
         if (node.tag === 'style') {
+          //style tags
           if (hasUnscopedAttribute(node)) {
             return removeUnscopedAttribute(node);
           }
@@ -59,7 +79,11 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               '<style> tags must be at the root of the template, they cannot be nested'
             );
           }
-          let inputCSS = textContent(node);
+          let inputCSS = textContent(node).replace(
+            SCOPED_CSS_CLASS_NAMESPACE,
+            dataAttribute
+          );
+          // replace special string with the randomly generated (hash) scoped css  class name
           let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
             inputCSS
           ).css;
@@ -75,6 +99,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
 
           return null;
         } else {
+          //other html nodes
           if (node.tag.startsWith(':')) {
             return node;
           } else {
