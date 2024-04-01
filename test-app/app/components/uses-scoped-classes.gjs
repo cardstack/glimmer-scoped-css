@@ -21,11 +21,11 @@ export default class UsesScopedClasses extends Component {
       }
     </style>
   </template>
+
+  get aString() {
+    return 'a string';
+  }
 }
-
-
-
-
 
 class DynamicallyInsertsElements extends Component {
   <template>
@@ -33,6 +33,10 @@ class DynamicallyInsertsElements extends Component {
       I have children inserted dynamically with a scoped class.
     </section>
   </template>
+
+  get aString() {
+    return 'a string';
+  }
 };
 
 class InsertChildElementsModifier extends Modifier {
