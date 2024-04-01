@@ -83,9 +83,9 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           }
           let inputCSS = textContent(node);
           // replace special string with the randomly generated (hash) scoped css  class name
-          let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
-            inputCSS
-          ).css;
+          let outputCSS = postcss([
+            scopedStylesPlugin([dataAttribute, SCOPED_CSS_CLASS]),
+          ]).process(inputCSS).css;
 
           // TODO: hard coding the loader chain means we ignore the other
           // prevailing rules (and we're even assuming these loaders are

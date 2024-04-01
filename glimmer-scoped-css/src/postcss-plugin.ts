@@ -35,18 +35,17 @@ function warn(message: string){
   console.warn(message);
 }
 
-// FIXME can this be parameterised?
-const SCOPED_CSS_CLASS = '__GLIMMER_SCOPED_CSS_CLASS';
-
-const scopedPlugin: PluginCreator<string> = (id = '') => {
+const scopedPlugin: PluginCreator<[string, string]> = (
+  [id = '', scopeClass = ''] = ['', '']
+) => {
   const keyframes = Object.create(null)
   const shortId = id.replace(/^data-v-/, '')
 
   return {
     postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
-      if (rule.selector.includes(SCOPED_CSS_CLASS)) {
-        rule.selector = rule.selector.replace(SCOPED_CSS_CLASS, id);
+      if (rule.selector.includes(scopeClass)) {
+        rule.selector = rule.selector.replace(scopeClass, id);
         return;
       } else if (rule.selector.includes(id)) {
         // The above change will result in this rule being processed again, let’s skip
