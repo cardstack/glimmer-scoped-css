@@ -32,20 +32,4 @@ class InsertChildElementsModifier extends Modifier<ScrollSignature> {
     `;
     element.appendChild(details);
     }
-  //   element: HTMLElement,
-  //   _positional: [],
-  //   { initialScrollPosition = 0, onScroll }: ScrollSignature['Args']['Named'],
-  // ) {
-  //   // note that when testing make sure "disable cache" in chrome network settings is unchecked,
-  //   // as this assumes that previously loaded images will be cached. otherwise the scroll will
-  //   // happen *before* the geometry is altered by images that haven't completed loading yet.
-  //   element.documentElement.scrollTop = initialScrollPosition;
-  //   element.scrollTop = initialScrollPosition;
-  //   if (onScroll) {
-  //     element.addEventListener('scroll', onScroll);
-  //     registerDestructor(this, () => {
-  //       element.removeEventListener('scroll', onScroll);
-  //     });
-  //   }
-  // }
 }
