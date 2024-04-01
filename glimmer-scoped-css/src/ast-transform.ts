@@ -72,10 +72,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               '<style> tags must be at the root of the template, they cannot be nested'
             );
           }
-          let inputCSS = textContent(node).replace(
-            SCOPED_CSS_CLASS,
-            dataAttribute
-          );
+          let inputCSS = textContent(node);
           // replace special string with the randomly generated (hash) scoped css  class name
           let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
             inputCSS

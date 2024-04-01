@@ -5,7 +5,7 @@ export default class UsesScopedClasses extends Component {
   <template>
     <DynamicallyInsertsElements @detailsClass="__GLIMMER_SCOPED_CSS_CLASS" data-test-details-container />
     <style>
-      :global(.__GLIMMER_SCOPED_CSS_CLASS) {
+      .__GLIMMER_SCOPED_CSS_CLASS {
         background-color: lightblue;
       }
     </style>
