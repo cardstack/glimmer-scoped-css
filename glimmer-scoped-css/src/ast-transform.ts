@@ -29,6 +29,8 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
     meta: { jsutils },
   } = env;
 
+  const SCOPED_CSS_CLASS = '__GLIMMER_SCOPED_CSS_CLASS';
+
   return {
     name: 'glimmer-scoped-css',
 
@@ -48,8 +50,19 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
       },
       ElementNode(node, walker) {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
+        node.attributes.forEach((attr) => {
+          let val = attr.value;
+          if (val.type === 'TextNode') {
+            if (val.chars.includes(SCOPED_CSS_CLASS)) {
+              val.chars = val.chars.replace(SCOPED_CSS_CLASS, dataAttribute);
+            }
+          } else if (val.type === 'MustacheStatement') {
+          } else if (val.type === 'ConcatStatement') {
+          }
+        });
 
         if (node.tag === 'style') {
+          //style tags
           if (hasUnscopedAttribute(node)) {
             return removeUnscopedAttribute(node);
           }
@@ -59,7 +72,11 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               '<style> tags must be at the root of the template, they cannot be nested'
             );
           }
-          let inputCSS = textContent(node);
+          let inputCSS = textContent(node).replace(
+            SCOPED_CSS_CLASS,
+            dataAttribute
+          );
+          // replace special string with the randomly generated (hash) scoped css  class name
           let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
             inputCSS
           ).css;

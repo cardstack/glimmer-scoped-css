@@ -92,6 +92,35 @@ module('Acceptance | scoped css', function (hooks) {
     });
   });
 
+  test('the __GLIMMER_SCOPED_CSS_CLASS is replaced in attribute strings and styles', async function (assert) {
+    await visit('/');
+
+    const detailsContainer = find('[data-test-details-container]');
+
+    if (!detailsContainer) {
+      throw new Error('[data-test-details-container] element not found');
+    }
+
+    const detailsContainerScopedCssSelector = Array.from(
+      detailsContainer.attributes
+    )
+      .map((attribute) => attribute.localName)
+      .find((attributeName) => attributeName.startsWith('data-scopedcss'));
+
+    if (!detailsContainerScopedCssSelector) {
+      throw new Error(
+        'Scoped CSS selector not found on [data-test-details-container]'
+      );
+    }
+
+    assert
+      .dom('[data-test-details-container] details')
+      .hasClass(detailsContainerScopedCssSelector)
+      .hasStyle({
+        'background-color': 'rgb(173, 216, 230)',
+      });
+  });
+
   test('unscoped style elements are passed through without the unscoped attribute', async function (assert) {
     await visit('/');
 
