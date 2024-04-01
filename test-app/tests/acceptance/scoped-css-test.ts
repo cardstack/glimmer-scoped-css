@@ -119,6 +119,13 @@ module('Acceptance | scoped css', function (hooks) {
       .hasStyle({
         'background-color': 'rgb(173, 216, 230)',
       });
+
+    assert
+      .dom('[data-test-details-container] time')
+      .hasClass(detailsContainerScopedCssSelector)
+      .hasStyle({
+        'background-color': 'rgb(50, 205, 50)',
+      });
   });
 
   test('unscoped style elements are passed through without the unscoped attribute', async function (assert) {

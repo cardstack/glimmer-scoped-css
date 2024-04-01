@@ -57,6 +57,14 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               val.chars = val.chars.replace(SCOPED_CSS_CLASS, dataAttribute);
             }
           } else if (val.type === 'MustacheStatement') {
+            val.params.forEach((param) => {
+              if (param.type === 'StringLiteral') {
+                param.value = param.value.replace(
+                  SCOPED_CSS_CLASS,
+                  dataAttribute
+                );
+              }
+            });
           } else if (val.type === 'ConcatStatement') {
           }
         });
