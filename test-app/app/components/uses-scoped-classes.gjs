@@ -4,13 +4,12 @@ import { concat } from '@ember/helper';
 
 export default class UsesScopedClasses extends Component {
   <template>
-    before
+
     <DynamicallyInsertsElements
       @detailsClass="__GLIMMER_SCOPED_CSS_CLASS"
       @timeClass={{concat "something " "__GLIMMER_SCOPED_CSS_CLASS"}}
-      data-test-details-container
+      data-test-dynamic-container
     />
-    after!!!!
     <style>
       details.__GLIMMER_SCOPED_CSS_CLASS {
         background-color: lightblue;

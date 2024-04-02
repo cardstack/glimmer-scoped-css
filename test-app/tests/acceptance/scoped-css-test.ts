@@ -95,34 +95,34 @@ module('Acceptance | scoped css', function (hooks) {
   test('the __GLIMMER_SCOPED_CSS_CLASS is replaced in attribute strings and styles', async function (assert) {
     await visit('/');
 
-    const detailsContainer = find('[data-test-details-container]');
+    const dynamicContainer = find('[data-test-dynamic-container]');
 
-    if (!detailsContainer) {
-      throw new Error('[data-test-details-container] element not found');
+    if (!dynamicContainer) {
+      throw new Error('[data-test-dynamic-container] element not found');
     }
 
-    const detailsContainerScopedCssSelector = Array.from(
-      detailsContainer.attributes
+    const dynamicContainerScopedCssSelector = Array.from(
+      dynamicContainer.attributes
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
 
-    if (!detailsContainerScopedCssSelector) {
+    if (!dynamicContainerScopedCssSelector) {
       throw new Error(
-        'Scoped CSS selector not found on [data-test-details-container]'
+        'Scoped CSS selector not found on [data-test-dynamic-container]'
       );
     }
 
     assert
-      .dom('[data-test-details-container] details')
-      .hasClass(detailsContainerScopedCssSelector)
+      .dom('[data-test-dynamic-container] details')
+      .hasClass(dynamicContainerScopedCssSelector)
       .hasStyle({
         'background-color': 'rgb(173, 216, 230)',
       });
 
     assert
-      .dom('[data-test-details-container] time')
-      .hasClass(detailsContainerScopedCssSelector)
+      .dom('[data-test-dynamic-container] time')
+      .hasClass(dynamicContainerScopedCssSelector)
       .hasStyle({
         'background-color': 'rgb(50, 205, 50)',
       });
