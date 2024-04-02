@@ -89,7 +89,6 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         });
 
         if (node.tag === 'style') {
-          //style tags
           if (hasUnscopedAttribute(node)) {
             return removeUnscopedAttribute(node);
           }
@@ -100,7 +99,6 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
             );
           }
           let inputCSS = textContent(node);
-          // replace special string with the randomly generated (hash) scoped css  class name
           let outputCSS = postcss([
             scopedStylesPlugin([dataAttribute, SCOPED_CSS_CLASS]),
           ]).process(inputCSS).css;
