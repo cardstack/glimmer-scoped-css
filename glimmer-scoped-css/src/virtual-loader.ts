@@ -7,7 +7,7 @@ export default function virtualLoader(this: LoaderContext<unknown>) {
 
   if (typeof optionsString !== 'string') {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader received unexpected request: ${optionsString}`
+      `glimmer-scoped-css/src/virtual-loader received unexpected request: ${optionsString}`,
     );
   }
 
@@ -17,7 +17,7 @@ export default function virtualLoader(this: LoaderContext<unknown>) {
 
   if (!filename) {
     throw new Error(
-      `glimmer-scoped-css/src/virtual-loader missing filename parameter: ${optionsString}`
+      `glimmer-scoped-css/src/virtual-loader missing filename parameter: ${optionsString}`,
     );
   }
 
