@@ -60,9 +60,9 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
             }
           } else if (val.type === 'MustacheStatement') {
             // example: <div class={{concat this.aClass " " "__GLIMMER_SCOPED_CSS"}}>
-            val.params.forEach((param) => {
-              replaceScopedClassesInAttribute(
-                param,
+            val.params.forEach((expression) => {
+              replaceScopedClassesInExpression(
+                expression,
                 SCOPED_CSS_CLASS,
                 scopeClass
               );
@@ -76,9 +76,9 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
                 }
               } else if (part.type === 'MustacheStatement') {
                 // example: <div class="x {{concat this.aClass " " "__GLIMMER_SCOPED_CSS"}}">
-                part.params.forEach((param) => {
-                  replaceScopedClassesInAttribute(
-                    param,
+                part.params.forEach((expression) => {
+                  replaceScopedClassesInExpression(
+                    expression,
                     SCOPED_CSS_CLASS,
                     scopeClass
                   );
@@ -155,7 +155,7 @@ function removeUnscopedAttribute(node: ASTv1.ElementNode): ASTv1.ElementNode {
   return node;
 }
 
-function replaceScopedClassesInAttribute(
+function replaceScopedClassesInExpression(
   expression: ASTv1.Expression,
   placeholderClass: string,
   replacementClass: string
@@ -167,7 +167,7 @@ function replaceScopedClassesInAttribute(
     );
   } else if (expression.type === 'SubExpression') {
     expression.params.forEach((param) => {
-      replaceScopedClassesInAttribute(
+      replaceScopedClassesInExpression(
         param,
         placeholderClass,
         replacementClass
