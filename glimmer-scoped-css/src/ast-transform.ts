@@ -67,6 +67,21 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
             });
           } else if (val.type === 'ConcatStatement') {
             // example: <div class="x {{@y}} z">
+            val.parts.forEach((part) => {
+              if (part.type === 'TextNode') {
+                if (part.chars.includes(SCOPED_CSS_CLASS)) {
+                  part.chars = part.chars.replace(SCOPED_CSS_CLASS, scopeClass);
+                }
+              } else if (part.type === 'MustacheStatement') {
+                part.params.forEach((param) => {
+                  replaceScopedClassesInAttribute(
+                    param,
+                    SCOPED_CSS_CLASS,
+                    scopeClass
+                  );
+                });
+              }
+            });
           }
         });
 

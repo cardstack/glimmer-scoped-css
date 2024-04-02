@@ -129,6 +129,20 @@ module('Acceptance | scoped css', function (hooks) {
       .hasStyle({
         'background-color': 'rgb(50, 205, 50)',
       });
+
+    assert
+      .dom('[data-test-dynamic-container] data')
+      .hasClass(dynamicContainerScopedCssClass)
+      .hasStyle({
+        'font-style': 'italic',
+      });
+
+    assert
+      .dom('[data-test-dynamic-container] code')
+      .hasClass(dynamicContainerScopedCssClass)
+      .hasStyle({
+        'font-style': 'italic',
+      });
   });
 
   test('unscoped style elements are passed through without the unscoped attribute', async function (assert) {
