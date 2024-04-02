@@ -36,18 +36,19 @@ function warn(message: string){
 }
 
 const scopedPlugin: PluginCreator<[string, string]> = (
-  [id = '', scopeClass = ''] = ['', '']
+  [id = '', classToReplace = ''] = ['', '']
 ) => {
   const keyframes = Object.create(null)
   const shortId = id.replace(/^data-v-/, '')
+  const replacementClass = id.replace(/^data-/, '');
 
   return {
     postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
-      if (rule.selector.includes(scopeClass)) {
-        rule.selector = rule.selector.replace(scopeClass, id);
+      if (rule.selector.includes(classToReplace)) {
+        rule.selector = rule.selector.replace(classToReplace, replacementClass);
         return;
-      } else if (rule.selector.includes(id)) {
+      } else if (rule.selector.includes(replacementClass)) {
         // The above change will result in this rule being processed again, let’s skip
         return;
       } else {

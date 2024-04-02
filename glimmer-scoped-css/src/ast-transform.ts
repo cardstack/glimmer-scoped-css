@@ -50,19 +50,17 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
       },
       ElementNode(node, walker) {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
+        let scopeClass = dataAttribute.replace(/^data-/, '');
         node.attributes.forEach((attr) => {
           let val = attr.value;
           if (val.type === 'TextNode') {
             if (val.chars.includes(SCOPED_CSS_CLASS)) {
-              val.chars = val.chars.replace(SCOPED_CSS_CLASS, dataAttribute);
+              val.chars = val.chars.replace(SCOPED_CSS_CLASS, scopeClass);
             }
           } else if (val.type === 'MustacheStatement') {
             val.params.forEach((param) => {
               if (param.type === 'StringLiteral') {
-                param.value = param.value.replace(
-                  SCOPED_CSS_CLASS,
-                  dataAttribute
-                );
+                param.value = param.value.replace(SCOPED_CSS_CLASS, scopeClass);
               }
             });
           } else if (val.type === 'ConcatStatement') {

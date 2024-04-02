@@ -101,28 +101,31 @@ module('Acceptance | scoped css', function (hooks) {
       throw new Error('[data-test-dynamic-container] element not found');
     }
 
-    const dynamicContainerScopedCssSelector = Array.from(
+    const prefixedDynamicContainerScopedCssSelector = Array.from(
       dynamicContainer.attributes
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
 
-    if (!dynamicContainerScopedCssSelector) {
+    if (!prefixedDynamicContainerScopedCssSelector) {
       throw new Error(
         'Scoped CSS selector not found on [data-test-dynamic-container]'
       );
     }
 
+    const dynamicContainerScopedCssClass =
+      prefixedDynamicContainerScopedCssSelector.replace(/^data-/, '');
+
     assert
       .dom('[data-test-dynamic-container] details')
-      .hasClass(dynamicContainerScopedCssSelector)
+      .hasClass(dynamicContainerScopedCssClass)
       .hasStyle({
         'background-color': 'rgb(173, 216, 230)',
       });
 
     assert
       .dom('[data-test-dynamic-container] time')
-      .hasClass(dynamicContainerScopedCssSelector)
+      .hasClass(dynamicContainerScopedCssClass)
       .hasStyle({
         'background-color': 'rgb(50, 205, 50)',
       });
