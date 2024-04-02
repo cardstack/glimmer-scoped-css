@@ -52,7 +52,7 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
 
         let scopeClass = dataAttribute.replace(/^data-/, '');
-        replaceScopedClassesInAttributes(node, scopeClass);
+        replacePlaceholderClassesInAttributes(node, scopeClass);
 
         if (node.tag === 'style') {
           if (hasUnscopedAttribute(node)) {
@@ -119,7 +119,7 @@ function removeUnscopedAttribute(node: ASTv1.ElementNode): ASTv1.ElementNode {
   return node;
 }
 
-function replaceScopedClassesInAttributes(
+function replacePlaceholderClassesInAttributes(
   elementNode: ASTv1.ElementNode,
   replacementClass: string,
 ) {
@@ -139,7 +139,7 @@ function replaceScopedClassesInAttributes(
       // example: <div class={{concat this.aClass " " "__GLIMMER_SCOPED_CSS"}}>
 
       attributeValue.params.forEach((expression) => {
-        replaceScopedClassesInExpression(
+        replacePlaceholderClassesInExpression(
           expression,
           SCOPED_CSS_CLASS,
           replacementClass,
@@ -157,7 +157,7 @@ function replaceScopedClassesInAttributes(
           // example: <div class="x {{concat this.aClass " " "__GLIMMER_SCOPED_CSS"}}">
 
           part.params.forEach((expression) => {
-            replaceScopedClassesInExpression(
+            replacePlaceholderClassesInExpression(
               expression,
               SCOPED_CSS_CLASS,
               replacementClass,
@@ -169,7 +169,7 @@ function replaceScopedClassesInAttributes(
   });
 }
 
-function replaceScopedClassesInExpression(
+function replacePlaceholderClassesInExpression(
   expression: ASTv1.Expression,
   placeholderClass: string,
   replacementClass: string,
@@ -181,7 +181,7 @@ function replaceScopedClassesInExpression(
     );
   } else if (expression.type === 'SubExpression') {
     expression.params.forEach((param) => {
-      replaceScopedClassesInExpression(
+      replacePlaceholderClassesInExpression(
         param,
         placeholderClass,
         replacementClass,
