@@ -41,21 +41,19 @@ export default class UsesScopedClasses extends Component {
   }
 }
 
-class DynamicallyInsertsElements extends Component {
-  <template>
-    <section
-      {{InsertChildElementsModifier
-        detailsClass=@detailsClass
-        timeClass=@timeClass
-        dataClass=@dataClass
-        codeClass=@codeClass
-      }}
-      ...attributes
-    >
-      I have children inserted dynamically with a scoped class.
-    </section>
-  </template>
-}
+const DynamicallyInsertsElements = <template>
+  <section
+    {{InsertChildElementsModifier
+      detailsClass=@detailsClass
+      timeClass=@timeClass
+      dataClass=@dataClass
+      codeClass=@codeClass
+    }}
+    ...attributes
+  >
+    I have children inserted dynamically with a scoped class.
+  </section>
+</template>;
 
 class InsertChildElementsModifier extends Modifier {
   modify(
