@@ -17,7 +17,7 @@ module('Acceptance | scoped css', function (hooks) {
     }
 
     const outerComponentScopedCssSelector = Array.from(
-      outerH1Element.attributes
+      outerH1Element.attributes,
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
@@ -35,7 +35,7 @@ module('Acceptance | scoped css', function (hooks) {
       .hasAttribute(
         outerComponentScopedCssSelector,
         '',
-        'expected splattributes element within nested component to inherit scoped CSS selector'
+        'expected splattributes element within nested component to inherit scoped CSS selector',
       );
     assert
       .dom('[data-test-inner-second-p]')
@@ -48,14 +48,14 @@ module('Acceptance | scoped css', function (hooks) {
     }
 
     const innerComponentScopedCssSelector = Array.from(
-      innerSecondParagraphElement.attributes
+      innerSecondParagraphElement.attributes,
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
 
     assert.notOk(
       innerComponentScopedCssSelector,
-      'expected [data-test-inner-second-p] to not have scoping attribute'
+      'expected [data-test-inner-second-p] to not have scoping attribute',
     );
 
     assert
@@ -63,7 +63,7 @@ module('Acceptance | scoped css', function (hooks) {
       .hasAttribute(
         outerComponentScopedCssSelector,
         '',
-        'expected splattributes element within nested component to have its parent component’s scoped CSS selector'
+        'expected splattributes element within nested component to have its parent component’s scoped CSS selector',
       );
   });
 
@@ -102,14 +102,14 @@ module('Acceptance | scoped css', function (hooks) {
     }
 
     const prefixedDynamicContainerScopedCssSelector = Array.from(
-      dynamicContainer.attributes
+      dynamicContainer.attributes,
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
 
     if (!prefixedDynamicContainerScopedCssSelector) {
       throw new Error(
-        'Scoped CSS selector not found on [data-test-dynamic-container]'
+        'Scoped CSS selector not found on [data-test-dynamic-container]',
       );
     }
 
