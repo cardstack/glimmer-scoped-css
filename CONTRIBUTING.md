@@ -28,3 +28,7 @@
 * Visit the test application at [http://localhost:4200](http://localhost:4200).
 
 For more information on using ember-cli, visit [https://cli.emberjs.com/release/](https://cli.emberjs.com/release/).
+
+## Iterating in development
+
+Caching can cause confusion while developing. When iterating on the AST transform, you will need to restart `test-app` to see changes. You also may need to change template files to trigger a rebuild.
