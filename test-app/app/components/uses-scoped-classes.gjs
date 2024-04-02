@@ -7,7 +7,7 @@ export default class UsesScopedClasses extends Component {
 
     <DynamicallyInsertsElements
       @detailsClass="__GLIMMER_SCOPED_CSS_CLASS"
-      @timeClass={{concat "something " "__GLIMMER_SCOPED_CSS_CLASS"}}
+      @timeClass={{concat "something " (concat "somethingelse " "__GLIMMER_SCOPED_CSS_CLASS")}}
       data-test-dynamic-container
     />
     <style>

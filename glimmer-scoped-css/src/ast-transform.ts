@@ -59,9 +59,11 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
             }
           } else if (val.type === 'MustacheStatement') {
             val.params.forEach((param) => {
-              if (param.type === 'StringLiteral') {
-                param.value = param.value.replace(SCOPED_CSS_CLASS, scopeClass);
-              }
+              replaceScopedClassesInAttribute(
+                param,
+                SCOPED_CSS_CLASS,
+                scopeClass
+              );
             });
           } else if (val.type === 'ConcatStatement') {
             // example: <div class="x {{@y}} z">
@@ -133,4 +135,25 @@ function removeUnscopedAttribute(node: ASTv1.ElementNode): ASTv1.ElementNode {
     (attribute) => attribute.name !== UNSCOPED_ATTRIBUTE_NAME
   );
   return node;
+}
+
+function replaceScopedClassesInAttribute(
+  expression: ASTv1.Expression,
+  placeholderClass: string,
+  replacementClass: string
+): void {
+  if (expression.type === 'StringLiteral') {
+    expression.value = expression.value.replace(
+      placeholderClass,
+      replacementClass
+    );
+  } else if (expression.type === 'SubExpression') {
+    expression.params.forEach((param) => {
+      replaceScopedClassesInAttribute(
+        param,
+        placeholderClass,
+        replacementClass
+      );
+    });
+  }
 }
