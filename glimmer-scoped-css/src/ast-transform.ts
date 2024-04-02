@@ -54,10 +54,12 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         node.attributes.forEach((attr) => {
           let val = attr.value;
           if (val.type === 'TextNode') {
+            // example: <div class="x __GLIMMER_SCOPED_CSS">
             if (val.chars.includes(SCOPED_CSS_CLASS)) {
               val.chars = val.chars.replace(SCOPED_CSS_CLASS, scopeClass);
             }
           } else if (val.type === 'MustacheStatement') {
+            // example: <div class={{concat this.aClass " " "__GLIMMER_SCOPED_CSS"}}>
             val.params.forEach((param) => {
               replaceScopedClassesInAttribute(
                 param,
@@ -66,13 +68,14 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               );
             });
           } else if (val.type === 'ConcatStatement') {
-            // example: <div class="x {{@y}} z">
             val.parts.forEach((part) => {
               if (part.type === 'TextNode') {
+                // example: <div class="x {{@y}} __GLIMMER_SCOPED_CSS">
                 if (part.chars.includes(SCOPED_CSS_CLASS)) {
                   part.chars = part.chars.replace(SCOPED_CSS_CLASS, scopeClass);
                 }
               } else if (part.type === 'MustacheStatement') {
+                // example: <div class="x {{concat this.aClass " " "__GLIMMER_SCOPED_CSS"}}">
                 part.params.forEach((param) => {
                   replaceScopedClassesInAttribute(
                     param,
