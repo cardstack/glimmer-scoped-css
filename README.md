@@ -74,6 +74,42 @@ The generated CSS will look like this:
 }
 ```
 
+## Scoping with wormholes: `__GLIMMER_SCOPED_CSS_CLASS`
+
+When working with Ember Power Select or other libraries that generate elements outside of the usual component hierarchy,
+you might find the scoping doesn’t work because the dynamic elements are elsewhere in the DOM.
+
+`glimmer-scoped-css` provides an escape hatch: the placeholder `__GLIMMER_SCOPED_CSS_CLASS` will be replaced via AST
+transform so you can pass a scoping class to library components. An example with Ember Power Select:
+
+```hbs
+<PowerSelect
+  @dropdownClass='__GLIMMER_SCOPED_CSS_CLASS'
+  @options={{names}}
+  @selected={{selectedName}}
+  @labelText="Name"
+  @onChange={{fn changeName}} as |name|>
+  {{name}}
+</PowerSelect>
+```
+
+Stylesheet:
+
+```css
+.__GLIMMER_SCOPED_CSS_CLASS {
+  background-color: red;
+}
+```
+
+These will be replaced via AST transform with scoped class names, resulting in an updated `@dropdownClass`
+and a stylesheet like this:
+
+```css
+.scopedcss-f61ca3e17a-5096f06db6 {
+  background-color: red;
+}
+```
+
 ## :rotating_light: Limitations
 
 This is a pre-1.0 release with several limitations:

@@ -17,7 +17,7 @@ module('Acceptance | scoped css', function (hooks) {
     }
 
     const outerComponentScopedCssSelector = Array.from(
-      outerH1Element.attributes
+      outerH1Element.attributes,
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
@@ -35,7 +35,7 @@ module('Acceptance | scoped css', function (hooks) {
       .hasAttribute(
         outerComponentScopedCssSelector,
         '',
-        'expected splattributes element within nested component to inherit scoped CSS selector'
+        'expected splattributes element within nested component to inherit scoped CSS selector',
       );
     assert
       .dom('[data-test-inner-second-p]')
@@ -48,14 +48,14 @@ module('Acceptance | scoped css', function (hooks) {
     }
 
     const innerComponentScopedCssSelector = Array.from(
-      innerSecondParagraphElement.attributes
+      innerSecondParagraphElement.attributes,
     )
       .map((attribute) => attribute.localName)
       .find((attributeName) => attributeName.startsWith('data-scopedcss'));
 
     assert.notOk(
       innerComponentScopedCssSelector,
-      'expected [data-test-inner-second-p] to not have scoping attribute'
+      'expected [data-test-inner-second-p] to not have scoping attribute',
     );
 
     assert
@@ -63,7 +63,7 @@ module('Acceptance | scoped css', function (hooks) {
       .hasAttribute(
         outerComponentScopedCssSelector,
         '',
-        'expected splattributes element within nested component to have its parent component’s scoped CSS selector'
+        'expected splattributes element within nested component to have its parent component’s scoped CSS selector',
       );
   });
 
@@ -90,6 +90,59 @@ module('Acceptance | scoped css', function (hooks) {
       'font-style': 'italic',
       'font-weight': '900',
     });
+  });
+
+  test('the __GLIMMER_SCOPED_CSS_CLASS is replaced in attribute strings and styles', async function (assert) {
+    await visit('/');
+
+    const dynamicContainer = find('[data-test-dynamic-container]');
+
+    if (!dynamicContainer) {
+      throw new Error('[data-test-dynamic-container] element not found');
+    }
+
+    const prefixedDynamicContainerScopedCssSelector = Array.from(
+      dynamicContainer.attributes,
+    )
+      .map((attribute) => attribute.localName)
+      .find((attributeName) => attributeName.startsWith('data-scopedcss'));
+
+    if (!prefixedDynamicContainerScopedCssSelector) {
+      throw new Error(
+        'Scoped CSS selector not found on [data-test-dynamic-container]',
+      );
+    }
+
+    const dynamicContainerScopedCssClass =
+      prefixedDynamicContainerScopedCssSelector.replace(/^data-/, '');
+
+    assert
+      .dom('[data-test-dynamic-container] details')
+      .hasClass(dynamicContainerScopedCssClass)
+      .hasStyle({
+        'background-color': 'rgb(173, 216, 230)',
+      });
+
+    assert
+      .dom('[data-test-dynamic-container] time')
+      .hasClass(dynamicContainerScopedCssClass)
+      .hasStyle({
+        'background-color': 'rgb(50, 205, 50)',
+      });
+
+    assert
+      .dom('[data-test-dynamic-container] data')
+      .hasClass(dynamicContainerScopedCssClass)
+      .hasStyle({
+        'font-style': 'italic',
+      });
+
+    assert
+      .dom('[data-test-dynamic-container] code')
+      .hasClass(dynamicContainerScopedCssClass)
+      .hasStyle({
+        'font-style': 'italic',
+      });
   });
 
   test('unscoped style elements are passed through without the unscoped attribute', async function (assert) {
