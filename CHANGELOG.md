@@ -8,7 +8,7 @@
 
 ## v0.4.1 (2024-02-01)
 
-#### :bug: Bug Fix
+#### :boom: Breaking Change
 * [#24](https://github.com/cardstack/glimmer-scoped-css/pull/24) Fix outbound requests from scoped CSS ([@ef4](https://github.com/ef4))
 
 #### Committers: 1
