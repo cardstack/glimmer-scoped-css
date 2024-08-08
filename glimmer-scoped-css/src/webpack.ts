@@ -24,7 +24,7 @@ export class GlimmerScopedCSSWebpackPlugin {
     this.addLoaderAlias(
       compiler,
       virtualLoaderName,
-      resolve(__dirname, './virtual-loader')
+      resolve(__dirname, './virtual-loader'),
     );
 
     compiler.hooks.normalModuleFactory.tap('glimmer-scoped-css', (nmf) => {
@@ -50,12 +50,12 @@ export class GlimmerScopedCSSWebpackPlugin {
             ) {
               state.request = `style-loader!css-loader!glimmer-scoped-css/virtual-loader?filename=${resolve(
                 dirname(state.contextInfo.issuer),
-                state.request
+                state.request,
               )}!`;
             }
           }
           callback(null, undefined);
-        }
+        },
       );
     });
   }
