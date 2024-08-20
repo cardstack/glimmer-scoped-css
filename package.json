@@ -50,10 +50,5 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
-  },
-  "pnpm": {
-    "overrides": {
-      "@embroider/util": "1.13.2"
-    }
   }
 }
