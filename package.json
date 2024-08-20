@@ -50,5 +50,12 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
+  },
+  "engines": {
+    "pnpm": "^8"
+  },
+  "volta": {
+    "node": "20.11.1",
+    "pnpm": "8.15.5"
   }
 }
