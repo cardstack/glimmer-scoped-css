@@ -131,4 +131,18 @@ module('Acceptance | scoped css', function (hooks) {
       color: 'rgb(0, 250, 0)',
     });
   });
+
+  test('an addon can use scoped styles', async function (assert) {
+    await visit('/');
+
+    assert.dom('[data-scoped-underline-addon-component]').hasStyle({
+      textDecoration: 'underline solid rgb(0, 0, 0)',
+    });
+
+    assert
+      .dom('[data-test-underline-component-outside-addon]')
+      .doesNotHaveStyle({
+        textDecoration: 'underline solid rgb(0, 0, 0)',
+      });
+  });
 });
