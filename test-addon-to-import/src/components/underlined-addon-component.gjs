@@ -1,4 +1,5 @@
 const UnderlinedAddonComponent = <template>
+  {{! template-lint-disable no-forbidden-elements }}
   <style data-test-scoped-underline-addon-component-style>
     .underlined-component { text-decoration: underline solid rgb(0, 0, 0); }
   </style>
