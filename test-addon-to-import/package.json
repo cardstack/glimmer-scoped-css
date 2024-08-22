@@ -44,6 +44,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.3.1",
     "eslint-plugin-prettier": "^5.1.3",
+    "glimmer-scoped-css": "workspace:*",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^2.0.2",
     "rollup": "^4.16.4"
@@ -59,12 +60,15 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
-      "./components/unscoped-addon-component.js": "./dist/_app_/components/unscoped-addon-component.js"
+      "./components/underlined-addon-component.js": "./dist/_app_/components/underlined-addon-component.js"
     }
   },
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*.js",
     "./addon-main.js": "./addon-main.cjs"
+  },
+  "volta": {
+    "extends": "../package.json"
   }
 }

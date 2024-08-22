@@ -163,6 +163,41 @@ ember install glimmer-scoped-css
 
 ### In an Ember addon
 
+#### v2 with Rollup
+
+2. Install the plugin in the addon’s Rollup config `rollup.config.mjs`:
+
+   ```diff
+    import { Addon } from '@embroider/addon-dev/rollup';
+    import { babel } from '@rollup/plugin-babel';
+    import copy from 'rollup-plugin-copy';
+   +import { scopedCSS } from 'glimmer-scoped-css/rollup';
+
+    const addon = new Addon({
+      srcDir: 'src',
+      destDir: 'dist',
+    });
+
+    export default {
+      output: addon.output(),
+
+      plugins: [
+   +    scopedCSS('src'),
+        …
+   ```
+
+3. Add the AST transform in `babel.config.json`:
+
+   ```diff
+    ["babel-plugin-ember-template-compilation", {
+      "targetFormat": "hbs",
+   -  "transforms": []
+   +  "transforms": ["glimmer-scoped-css/ast-transform"]
+    }],
+   ```
+
+#### v1
+
 2. Install the preprocessor directly in the addon’s `index.js`:
 
    ```diff

@@ -1,3 +1,4 @@
+import UnderlinedAddonComponent from 'test-addon-to-import/components/underlined-addon-component';
 import UnscopedAddonComponent from 'test-addon-to-import/components/unscoped-addon-component';
 
 const MultipleInner = <template>
@@ -23,6 +24,12 @@ const MultipleOuter = <template>
       font-style: italic;
     }
   </style>
+
+  <UnderlinedAddonComponent />
+
+  <p class='underlined-component' data-test-underline-component-outside-addon>
+    an element with the same class as the addon component does not get its styles
+  </p>
 </template>;
 
 export default MultipleOuter;
