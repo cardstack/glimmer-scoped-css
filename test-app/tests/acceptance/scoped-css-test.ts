@@ -105,7 +105,7 @@ module('Acceptance | scoped css', function (hooks) {
     });
 
     assert.dom('.addon-component').hasStyle({
-      'text-decoration': 'underline',
+      'text-decoration': 'underline solid rgb(0, 0, 0)',
     });
   });
 
