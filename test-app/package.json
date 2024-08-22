@@ -92,6 +92,7 @@
     "prettier-plugin-ember-template-tag": "^1.0.2",
     "qunit": "^2.19.4",
     "qunit-dom": "^2.0.0",
+    "test-addon-to-import": "workspace:*",
     "tracked-built-ins": "^3.1.1",
     "typescript": "^4.9.5",
     "webpack": "^5.78.0"

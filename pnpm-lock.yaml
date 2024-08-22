@@ -691,6 +691,9 @@ importers:
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
+      test-addon-to-import:
+        specifier: workspace:*
+        version: link:../test-addon-to-import
       tracked-built-ins:
         specifier: ^3.1.1
         version: 3.3.0
