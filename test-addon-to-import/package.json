@@ -60,8 +60,7 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
-      "./components/underlined-addon-component.js": "./dist/_app_/components/underlined-addon-component.js",
-      "./components/unscoped-addon-component.js": "./dist/_app_/components/unscoped-addon-component.js"
+      "./components/underlined-addon-component.js": "./dist/_app_/components/underlined-addon-component.js"
     }
   },
   "exports": {
