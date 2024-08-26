@@ -6,6 +6,22 @@
 
 
 
+## v0.5.0 (2024-08-26)
+
+#### :rocket: Enhancement
+* [#36](https://github.com/cardstack/glimmer-scoped-css/pull/36) Add Rollup plugin for v2 addons ([@backspace](https://github.com/backspace))
+
+#### :bug: Bug Fix
+* [#32](https://github.com/cardstack/glimmer-scoped-css/pull/32) Fix build error in applications importing unscoped styles ([@backspace](https://github.com/backspace))
+
+#### :memo: Documentation
+* [#29](https://github.com/cardstack/glimmer-scoped-css/pull/29) Add documentation on iteration ([@backspace](https://github.com/backspace))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+
+
 ## v0.4.1 (2024-02-01)
 
 #### :boom: Breaking Change
