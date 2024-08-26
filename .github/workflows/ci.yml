@@ -29,6 +29,9 @@ jobs:
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build test-addon-to-import
+        run: pnpm build
+        working-directory: test-addon-to-import
       - name: Lint
         run: pnpm lint
       - name: Run Tests
@@ -52,6 +55,9 @@ jobs:
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --no-lockfile
+      - name: Build test-addon-to-import
+        run: pnpm build
+        working-directory: test-addon-to-import
       - name: Run Tests
         run: pnpm test
       - name: Run Build Failure Test
@@ -88,6 +94,9 @@ jobs:
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build test-addon-to-import
+        run: pnpm build
+        working-directory: test-addon-to-import
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
         working-directory: test-app
