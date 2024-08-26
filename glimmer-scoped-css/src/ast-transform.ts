@@ -50,19 +50,21 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
 
         if (node.tag === 'style') {
-          if (hasUnscopedAttribute(node)) {
-            return removeUnscopedAttribute(node);
-          }
-
           if (walker.parent?.node.type !== 'Template') {
             throw new Error(
               '<style> tags must be at the root of the template, they cannot be nested'
             );
           }
           let inputCSS = textContent(node);
-          let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
-            inputCSS
-          ).css;
+          let outputCSS;
+
+          if (hasUnscopedAttribute(node)) {
+            outputCSS = inputCSS;
+          } else {
+            outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
+              inputCSS
+            ).css;
+          }
 
           // TODO: hard coding the loader chain means we ignore the other
           // prevailing rules (and we're even assuming these loaders are
@@ -105,11 +107,4 @@ function hasUnscopedAttribute(node: ASTv1.ElementNode): boolean {
   return node.attributes.some(
     (attribute) => attribute.name === UNSCOPED_ATTRIBUTE_NAME
   );
-}
-
-function removeUnscopedAttribute(node: ASTv1.ElementNode): ASTv1.ElementNode {
-  node.attributes = node.attributes.filter(
-    (attribute) => attribute.name !== UNSCOPED_ATTRIBUTE_NAME
-  );
-  return node;
 }

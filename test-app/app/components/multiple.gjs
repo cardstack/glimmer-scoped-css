@@ -1,6 +1,8 @@
 import UnderlinedAddonComponent from 'test-addon-to-import/components/underlined-addon-component';
+import UnscopedAddonComponent from 'test-addon-to-import/components/unscoped-addon-component';
 
 const MultipleInner = <template>
+  <UnscopedAddonComponent />
   <p data-test-multiple-inner>Multiple inner</p>
   <style>
     p {
