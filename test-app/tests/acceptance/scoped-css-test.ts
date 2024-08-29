@@ -133,4 +133,12 @@ module('Acceptance | scoped css', function (hooks) {
       textDecoration: 'underline solid rgb(0, 0, 0)',
     });
   });
+
+  test('unscoped styles can use interpolation', async function (assert) {
+    await visit('/');
+
+    assert.dom('.interpolated-style-input').hasStyle({
+      color: 'rgb(255, 192, 203)',
+    });
+  });
 });
