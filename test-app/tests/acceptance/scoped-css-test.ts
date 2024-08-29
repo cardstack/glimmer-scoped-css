@@ -128,5 +128,9 @@ module('Acceptance | scoped css', function (hooks) {
       .doesNotHaveStyle({
         textDecoration: 'underline solid rgb(0, 0, 0)',
       });
+
+    assert.dom('[data-test-paragraph-with-class-styled-by-addon]').hasStyle({
+      textDecoration: 'underline solid rgb(0, 0, 0)',
+    });
   });
 });
