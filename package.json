@@ -7,7 +7,10 @@
     "url": "git@github.com:cardstack/glimmer-scoped-css.git"
   },
   "license": "MIT",
-  "author": "Edward Faulkner <edward@eaf4.com>",
+  "contributors": [
+    "Edward Faulkner <edward@eaf4.com>",
+    "Buck Doyle <b@chromatin.ca>"
+  ],
   "workspaces": [
     "failing-test-app",
     "glimmer-scoped-css",
