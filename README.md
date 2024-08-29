@@ -221,9 +221,7 @@ ember install glimmer-scoped-css
 
 Add a top-level `<style scoped>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
 
-Nested `<style>` elements cannot be processed for scoping. Use `<style unscoped>` if you need a nested element, it will not receive scoping attributes and will be passed through to output without the `unscoped` attribute.
-
-FIXME is it still true re nesting? But unscoped is no longer needed regardless…
+Nested `<style scoped>` elements cannot be processed for scoping. Use `<style>` directly if you need a nested element, it will not receive scoping attributes and will be passed through to output.
 
 ## Architecture
 

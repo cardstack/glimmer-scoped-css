@@ -50,16 +50,16 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
         let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
 
         if (node.tag === 'style') {
-          if (walker.parent?.node.type !== 'Template') {
-            // FIXME again, is this still true?
-            throw new Error(
-              '<style> tags must be at the root of the template, they cannot be nested'
-            );
-          }
           let inputCSS = textContent(node);
           let outputCSS;
 
           if (hasScopedAttribute(node)) {
+            if (walker.parent?.node.type !== 'Template') {
+              throw new Error(
+                '<style> tags must be at the root of the template, they cannot be nested'
+              );
+            }
+
             outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
               inputCSS
             ).css;
