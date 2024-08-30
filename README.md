@@ -82,6 +82,7 @@ This is a pre-1.0 release with several limitations:
 - it hardcodes Webpack CSS loaders
   - this works fine when you have the default loaders configured by `@embroider/webpack`
 - the styles are in a `style` element in `index.html`, not linked
+- scoped styles cannot use interpolation: `{{whatever}}` will be duplicated unprocessed in the stylesheet
 - there is log noise about source maps like this:
   ```
   unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9-58ccb4dfe0"
