@@ -32,7 +32,14 @@
     "@release-it-plugins/workspaces": "^3.2.0",
     "concurrently": "^7.2.1",
     "prettier": "^2.5.1",
-    "release-it": "^15.5.0"
+    "release-plan": "^0.9.0"
+  },
+  "engines": {
+    "pnpm": "^8"
+  },
+  "volta": {
+    "node": "20.11.1",
+    "pnpm": "8.15.5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -53,12 +60,5 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
-  },
-  "engines": {
-    "pnpm": "^8"
-  },
-  "volta": {
-    "node": "20.11.1",
-    "pnpm": "8.15.5"
   }
 }
