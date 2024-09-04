@@ -1,5 +1,21 @@
 # Changelog
 
+## Release (2024-09-04)
+
+glimmer-scoped-css 1.0.0 (major)
+
+#### :boom: Breaking Change
+* `failing-test-app`, `glimmer-scoped-css`, `test-app`
+  * [#38](https://github.com/cardstack/glimmer-scoped-css/pull/38) Change to require explicit scoping ([@backspace](https://github.com/backspace))
+
+#### :house: Internal
+* [#40](https://github.com/cardstack/glimmer-scoped-css/pull/40) dropping engines declaration ([@ef4](https://github.com/ef4))
+* [#39](https://github.com/cardstack/glimmer-scoped-css/pull/39) Add release-plan ([@ef4](https://github.com/ef4))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+
 
 
 
