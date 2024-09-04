@@ -5,7 +5,7 @@
 If you have `app/components/something.hbs`:
 
 ```html
-<style>
+<style scoped>
   p {
     color: blue;
   }
@@ -82,6 +82,7 @@ This is a pre-1.0 release with several limitations:
 - it hardcodes Webpack CSS loaders
   - this works fine when you have the default loaders configured by `@embroider/webpack`
 - the styles are in a `style` element in `index.html`, not linked
+- scoped styles cannot use interpolation: `{{whatever}}` will be duplicated unprocessed in the stylesheet
 - there is log noise about source maps like this:
   ```
   unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9-58ccb4dfe0"
@@ -219,9 +220,9 @@ ember install glimmer-scoped-css
 
 ## Usage
 
-Add a top-level `<style>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
+Add a top-level `<style scoped>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
 
-Nested `<style>` elements cannot be processed for scoping. Use `<style unscoped>` if you need a nested element, it will not receive scoping attributes and will be passed through to output without the `unscoped` attribute.
+Nested `<style scoped>` elements cannot be processed for scoping. Use `<style>` directly if you need a nested element, it will not receive scoping attributes and will be passed through to output.
 
 ## Architecture
 

@@ -1,6 +1,6 @@
 const UnscopedAddonComponent = <template>
   {{! template-lint-disable no-forbidden-elements }}
-  <style unscoped data-test-addon-component-style>
+  <style data-test-addon-component-style>
     .addon-component { text-decoration: underline solid rgb(0, 0, 0); }
   </style>
 

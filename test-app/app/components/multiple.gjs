@@ -4,7 +4,7 @@ import UnscopedAddonComponent from 'test-addon-to-import/components/unscoped-add
 const MultipleInner = <template>
   <UnscopedAddonComponent />
   <p data-test-multiple-inner>Multiple inner</p>
-  <style>
+  <style scoped>
     p {
       font-weight: 700;
     }
@@ -12,14 +12,14 @@ const MultipleInner = <template>
 </template>;
 
 const MultipleOuter = <template>
-  <style>
+  <style scoped>
     p {
       font-weight: 900;
     }
   </style>
   <p data-test-multiple-outer>Multiple outer</p>
   {{MultipleInner}}
-  <style>
+  <style scoped>
     p {
       font-style: italic;
     }

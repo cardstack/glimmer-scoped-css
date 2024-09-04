@@ -1,4 +1,4 @@
-<style>
+<style scoped>
   p { color: blue; }
 
   /* This exercises a bug fix related to base64 encoding of CSS */
@@ -14,7 +14,7 @@
     color: green;
   }
 </style>
-<style data-test-unscoped-root-style unscoped>
+<style data-test-unscoped-root-style>
   p {
     text-align: end;
   }
@@ -29,12 +29,13 @@
 
 <div>
   <Inner />
+
+  <style>
+    p {
+      text-transform: uppercase;
+    }
+  </style>
 </div>
 
-<style unscoped>
-  p {
-    text-transform: uppercase;
-  }
-</style>
 
 {{yield to="block"}}

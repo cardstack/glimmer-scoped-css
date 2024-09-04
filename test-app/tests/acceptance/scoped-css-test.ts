@@ -92,23 +92,6 @@ module('Acceptance | scoped css', function (hooks) {
     });
   });
 
-  test('unscoped style elements are converted to imports', async function (assert) {
-    await visit('/');
-
-    assert.dom('[data-test-unscoped-root-style]').doesNotExist();
-    assert.dom('[data-test-addon-component-style]').doesNotExist();
-    assert.dom('style[unscoped]').doesNotExist();
-
-    assert.dom('[data-test-global-p]').hasStyle({
-      'text-align': 'end',
-      'text-transform': 'uppercase',
-    });
-
-    assert.dom('.addon-component').hasStyle({
-      'text-decoration': 'underline solid rgb(0, 0, 0)',
-    });
-  });
-
   test('a block can be made non-scoped with the :global pseudo-class', async function (assert) {
     await visit('/');
 
@@ -145,5 +128,17 @@ module('Acceptance | scoped css', function (hooks) {
       .doesNotHaveStyle({
         textDecoration: 'underline solid rgb(0, 0, 0)',
       });
+
+    assert.dom('[data-test-paragraph-with-class-styled-by-addon]').hasStyle({
+      textDecoration: 'underline solid rgb(0, 0, 0)',
+    });
+  });
+
+  test('unscoped styles can use interpolation', async function (assert) {
+    await visit('/');
+
+    assert.dom('.interpolated-style-input').hasStyle({
+      color: 'rgb(255, 192, 203)',
+    });
   });
 });
