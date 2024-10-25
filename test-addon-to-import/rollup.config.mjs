@@ -13,7 +13,7 @@ export default {
   output: addon.output(),
 
   plugins: [
-    scopedCSS('src'),
+    scopedCSS(),
 
     // These are the modules that users should be able to import from your
     // addon. Anything not listed here may get optimized away.
@@ -39,17 +39,6 @@ export default {
     // package names.
     addon.dependencies(),
 
-    // This babel config should *not* apply presets or compile away ES modules.
-    // It exists only to provide development niceties for you, like automatic
-    // template colocation.
-    //
-    // By default, this will load the actual babel config from the file
-    // babel.config.json.
-    babel({
-      extensions: ['.js', '.gjs'],
-      babelHelpers: 'bundled',
-    }),
-
     // Ensure that standalone .hbs files are properly integrated as Javascript.
     addon.hbs(),
 
@@ -62,5 +51,16 @@ export default {
 
     // Remove leftover build artifacts when starting a new build.
     addon.clean(),
+
+    // This babel config should *not* apply presets or compile away ES modules.
+    // It exists only to provide development niceties for you, like automatic
+    // template colocation.
+    //
+    // By default, this will load the actual babel config from the file
+    // babel.config.json.
+    babel({
+      extensions: ['.js', '.gjs'],
+      babelHelpers: 'bundled',
+    }),
   ],
 };
