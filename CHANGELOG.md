@@ -6,7 +6,7 @@ glimmer-scoped-css 1.0.0 (major)
 
 #### :boom: Breaking Change
 * `failing-test-app`, `glimmer-scoped-css`, `test-app`
-  * [#42](https://github.com/cardstack/glimmer-scoped-css/pull/42) Rollup plugin: support app usage ([@ef4](https://github.com/ef4))
+  * [#42](https://github.com/cardstack/glimmer-scoped-css/pull/42) Rollup plugin: support app usage ([@ef4](https://github.com/ef4)). This is breaking because we no longer automatically emit separate CSS files. To maintain the old behavior in a v2 addon build, you will need to upgrade @embroider/addon-dev to get an updated `keepAssets()` that will automatically capture the CSS emitted from glimmer-scoped-css.
 
 #### Committers: 1
 - Edward Faulkner ([@ef4](https://github.com/ef4))
