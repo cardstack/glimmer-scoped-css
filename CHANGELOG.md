@@ -2,7 +2,7 @@
 
 ## Release (2024-10-25)
 
-glimmer-scoped-css 1.0.0 (major)
+glimmer-scoped-css 0.7.0 (major)
 
 #### :boom: Breaking Change
 * `failing-test-app`, `glimmer-scoped-css`, `test-app`
@@ -13,7 +13,7 @@ glimmer-scoped-css 1.0.0 (major)
 
 ## Release (2024-09-04)
 
-glimmer-scoped-css 1.0.0 (major)
+glimmer-scoped-css 0.6.0 (major)
 
 #### :boom: Breaking Change
 * `failing-test-app`, `glimmer-scoped-css`, `test-app`
