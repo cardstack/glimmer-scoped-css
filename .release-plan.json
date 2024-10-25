@@ -2,8 +2,8 @@
   "solution": {
     "glimmer-scoped-css": {
       "impact": "major",
-      "oldVersion": "0.5.0",
-      "newVersion": "0.6.0",
+      "oldVersion": "0.6.0",
+      "newVersion": "1.0.0",
       "constraints": [
         {
           "impact": "major",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./glimmer-scoped-css/package.json"
     }
   },
-  "description": "## Release (2024-09-04)\n\nglimmer-scoped-css 0.6.0 (major)\n\n#### :boom: Breaking Change\n* `failing-test-app`, `glimmer-scoped-css`, `test-app`\n  * [#38](https://github.com/cardstack/glimmer-scoped-css/pull/38) Change to require explicit scoping ([@backspace](https://github.com/backspace))\n\n#### :house: Internal\n* [#40](https://github.com/cardstack/glimmer-scoped-css/pull/40) dropping engines declaration ([@ef4](https://github.com/ef4))\n* [#39](https://github.com/cardstack/glimmer-scoped-css/pull/39) Add release-plan ([@ef4](https://github.com/ef4))\n\n#### Committers: 2\n- Buck Doyle ([@backspace](https://github.com/backspace))\n- Edward Faulkner ([@ef4](https://github.com/ef4))\n"
+  "description": "## Release (2024-10-25)\n\nglimmer-scoped-css 1.0.0 (major)\n\n#### :boom: Breaking Change\n* `failing-test-app`, `glimmer-scoped-css`, `test-app`\n  * [#42](https://github.com/cardstack/glimmer-scoped-css/pull/42) Rollup plugin: support app usage ([@ef4](https://github.com/ef4))\n\n#### Committers: 1\n- Edward Faulkner ([@ef4](https://github.com/ef4))\n"
 }
