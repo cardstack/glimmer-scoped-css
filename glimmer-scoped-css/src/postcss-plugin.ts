@@ -35,14 +35,14 @@ function warn(message: string){
   console.warn(message);
 }
 
-const scopedPlugin: PluginCreator<string> = (id = '') => {
+const scopedPlugin: PluginCreator<string> = (id = '', noGlobal = false) => {
   const keyframes = Object.create(null)
   const shortId = id.replace(/^data-v-/, '')
 
   return {
     postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
-      processRule(id, rule)
+      processRule(id, rule, noGlobal)
     },
     AtRule(node) {
       if (
@@ -91,7 +91,7 @@ const scopedPlugin: PluginCreator<string> = (id = '') => {
 
 const processedRules = new WeakSet<Rule>()
 
-function processRule(id: string, rule: Rule) {
+function processRule(id: string, rule: Rule, noGlobal = false) {
   if (
     processedRules.has(rule) ||
     (rule.parent &&
@@ -103,7 +103,7 @@ function processRule(id: string, rule: Rule) {
   processedRules.add(rule)
   rule.selector = selectorParser(selectorRoot => {
     selectorRoot.each(selector => {
-      rewriteSelector(id, selector, selectorRoot)
+      rewriteSelector(id, selector, selectorRoot, noGlobal)
     })
   }).processSync(rule.selector)
 }
@@ -112,6 +112,7 @@ function rewriteSelector(
   id: string,
   selector: selectorParser.Selector,
   selectorRoot: selectorParser.Root,
+  noGlobal = false
 ) {
   let node: selectorParser.Node | null = null
   let shouldInject = true
@@ -145,12 +146,14 @@ function rewriteSelector(
         return false
       }
 
-      // global: replace with inner selector and do not inject [id].
-      // ::global(.foo) -> .foo
-      if (value === ':global') {
-        selectorRoot.insertAfter(selector, n.nodes[0]!)
-        selectorRoot.removeChild(selector)
-        return false
+      if (!noGlobal) {
+        // global: replace with inner selector and do not inject [id].
+        // ::global(.foo) -> .foo
+        if (value === ':global') {
+          selectorRoot.insertAfter(selector, n.nodes[0]!)
+          selectorRoot.removeChild(selector)
+          return false
+        }
       }
     }
 

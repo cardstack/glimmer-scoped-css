@@ -93,7 +93,81 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
   };
 };
 
+const noGlobalScopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
+  let dataAttributePrefix = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
+  let currentTemplateStyleHash: string;
+
+  let {
+    syntax: { builders },
+    meta: { jsutils },
+  } = env;
+
+  return {
+    name: 'glimmer-scoped-css',
+
+    visitor: {
+      Template(node) {
+        let styleTag = node.body.find(
+          (n) => n.type === 'ElementNode' && n.tag === 'style'
+        );
+
+        if (styleTag) {
+          currentTemplateStyleHash = md5(
+            textContent(styleTag as ASTv1.ElementNode)
+          ).slice(0, 10);
+        }
+
+        return node;
+      },
+      ElementNode(node, walker) {
+        let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
+
+        if (node.tag === 'style') {
+          let inputCSS = textContent(node);
+          let outputCSS;
+
+          if (hasScopedAttribute(node)) {
+            if (walker.parent?.node.type !== 'Template') {
+              throw new Error(
+                '<style> tags must be at the root of the template, they cannot be nested'
+              );
+            }
+
+            outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
+              inputCSS
+            ).css;
+          } else {
+            return;
+          }
+
+          // TODO: hard coding the loader chain means we ignore the other
+          // prevailing rules (and we're even assuming these loaders are
+          // available)
+          let encodedCss = encodeURIComponent(btoa(outputCSS));
+
+          jsutils.importForSideEffect(
+            `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
+          );
+
+          return null;
+        } else {
+          if (node.tag.startsWith(':')) {
+            return node;
+          } else {
+            if (currentTemplateStyleHash) {
+              node.attributes.push(
+                builders.attr(dataAttribute, builders.text(''))
+              );
+            }
+          }
+        }
+      },
+    },
+  };
+};
+
 export default scopedCSSTransform;
+export { noGlobalScopedCSSTransform };
 
 function textContent(node: ASTv1.ElementNode): string {
   let textChildren = node.children.filter(
