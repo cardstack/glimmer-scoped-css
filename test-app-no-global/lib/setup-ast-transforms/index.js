@@ -6,7 +6,7 @@ module.exports = {
   name: require('./package').name,
   setupPreprocessorRegistry(type, registry) {
     if (type === 'parent') {
-      installScopedCSS(registry, { noGlobal: true });
+      installScopedCSS(registry, { noGlobal: false });
     }
   },
 };
