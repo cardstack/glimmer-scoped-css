@@ -42,7 +42,7 @@ jobs:
         run: pnpm test-build-failure
 
   floating:
-    name: 'Floating Dependencies'
+    name: "Floating Dependencies"
     runs-on: ubuntu-latest
 
     steps:
