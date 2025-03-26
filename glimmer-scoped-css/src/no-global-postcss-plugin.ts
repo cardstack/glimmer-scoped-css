@@ -25,24 +25,24 @@
   THE SOFTWARE.
 */
 
-import { PluginCreator, Rule, AtRule } from 'postcss'
-import selectorParser from 'postcss-selector-parser'
+import { PluginCreator, Rule, AtRule } from 'postcss';
+import selectorParser from 'postcss-selector-parser';
 
-const animationNameRE = /^(-\w+-)?animation-name$/
-const animationRE = /^(-\w+-)?animation$/
+const animationNameRE = /^(-\w+-)?animation-name$/;
+const animationRE = /^(-\w+-)?animation$/;
 
-function warn(message: string){
+function warn(message: string) {
   console.warn(message);
 }
 
 const scopedPlugin: PluginCreator<string> = (id = '') => {
-  const keyframes = Object.create(null)
-  const shortId = id.replace(/^data-v-/, '')
+  const keyframes = Object.create(null);
+  const shortId = id.replace(/^data-v-/, '');
 
   return {
     postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
-      processRule(id, rule)
+      processRule(id, rule);
     },
     AtRule(node) {
       if (
@@ -50,7 +50,7 @@ const scopedPlugin: PluginCreator<string> = (id = '') => {
         !node.params.endsWith(`-${shortId}`)
       ) {
         // register keyframes
-        keyframes[node.params] = node.params = node.params + '-' + shortId
+        keyframes[node.params] = node.params = node.params + '-' + shortId;
       }
     },
     OnceExit(root) {
@@ -60,36 +60,36 @@ const scopedPlugin: PluginCreator<string> = (id = '') => {
         // Caveat: this only works for keyframes and animation rules in the same
         // <style> element.
         // individual animation-name declaration
-        root.walkDecls(decl => {
+        root.walkDecls((decl) => {
           if (animationNameRE.test(decl.prop)) {
             decl.value = decl.value
               .split(',')
-              .map(v => keyframes[v.trim()] || v.trim())
-              .join(',')
+              .map((v) => keyframes[v.trim()] || v.trim())
+              .join(',');
           }
           // shorthand
           if (animationRE.test(decl.prop)) {
             decl.value = decl.value
               .split(',')
-              .map(v => {
-                const vals = v.trim().split(/\s+/)
-                const i = vals.findIndex(val => keyframes[val])
+              .map((v) => {
+                const vals = v.trim().split(/\s+/);
+                const i = vals.findIndex((val) => keyframes[val]);
                 if (i !== -1) {
-                  vals.splice(i, 1, keyframes[vals[i]!])
-                  return vals.join(' ')
+                  vals.splice(i, 1, keyframes[vals[i]!]);
+                  return vals.join(' ');
                 } else {
-                  return v
+                  return v;
                 }
               })
-              .join(',')
+              .join(',');
           }
-        })
+        });
       }
-    }
-  }
-}
+    },
+  };
+};
 
-const processedRules = new WeakSet<Rule>()
+const processedRules = new WeakSet<Rule>();
 
 function processRule(id: string, rule: Rule) {
   if (
@@ -98,74 +98,66 @@ function processRule(id: string, rule: Rule) {
       rule.parent.type === 'atrule' &&
       /-?keyframes$/.test((rule.parent as AtRule).name))
   ) {
-    return
+    return;
   }
-  processedRules.add(rule)
-  rule.selector = selectorParser(selectorRoot => {
-    selectorRoot.each(selector => {
-      rewriteSelector(id, selector, selectorRoot)
-    })
-  }).processSync(rule.selector)
+  processedRules.add(rule);
+  rule.selector = selectorParser((selectorRoot) => {
+    selectorRoot.each((selector) => {
+      rewriteSelector(id, selector, selectorRoot);
+    });
+  }).processSync(rule.selector);
 }
 
 function rewriteSelector(
   id: string,
   selector: selectorParser.Selector,
-  selectorRoot: selectorParser.Root,
+  selectorRoot: selectorParser.Root
 ) {
-  let node: selectorParser.Node | null = null
-  let shouldInject = true
+  let node: selectorParser.Node | null = null;
+  let shouldInject = true;
   // find the last child node to insert attribute selector
-  selector.each(n => {
+  selector.each((n) => {
     if (n.type === 'pseudo') {
-      const { value } = n
+      const { value } = n;
       // deep: inject [id] attribute at the node before the ::deep
       // combinator.
       if (value === ':deep') {
         if (n.nodes.length) {
           // .foo :deep(.bar) -> .foo[xxxxxxx] .bar
           // replace the current node with :deep's inner selector
-          let last: selectorParser.Selector['nodes'][0] = n
-          n.nodes[0]!.each(ss => {
-            selector.insertAfter(last, ss)
-            last = ss
-          })
+          let last: selectorParser.Selector['nodes'][0] = n;
+          n.nodes[0]!.each((ss) => {
+            selector.insertAfter(last, ss);
+            last = ss;
+          });
           // insert a space combinator before if it doesn't already have one
-          const prev = selector.at(selector.index(n) - 1)
+          const prev = selector.at(selector.index(n) - 1);
           if (!prev || !isSpaceCombinator(prev)) {
             selector.insertAfter(
               n,
               selectorParser.combinator({
-                value: ' '
+                value: ' ',
               })
-            )
+            );
           }
-          selector.removeChild(n)
+          selector.removeChild(n);
         }
-        return false
-      }
-
-      // global: replace with inner selector and do not inject [id].
-      // ::global(.foo) -> .foo
-      if (value === ':global') {
-        selectorRoot.insertAfter(selector, n.nodes[0]!)
-        selectorRoot.removeChild(selector)
-        return false
+        return false;
       }
     }
 
     if (n.type !== 'pseudo' && n.type !== 'combinator') {
-      node = n
+      node = n;
     }
-  })
+  });
 
   if (node) {
-    ;(node as selectorParser.Node).spaces.after = ''
+    (node as selectorParser.Node).spaces.after = '';
   } else {
     // For deep selectors & standalone pseudo selectors,
     // the attribute selectors are prepended rather than appended.
     // So all leading spaces must be eliminated to avoid problems.
-    selector.first.spaces.before = ''
+    selector.first.spaces.before = '';
   }
 
   if (shouldInject) {
@@ -177,15 +169,15 @@ function rewriteSelector(
         attribute: id,
         value: id,
         raws: {},
-        quoteMark: `"`
+        quoteMark: `"`,
       })
-    )
+    );
   }
 }
 
 function isSpaceCombinator(node: selectorParser.Node) {
-  return node.type === 'combinator' && /^\s+$/.test(node.value)
+  return node.type === 'combinator' && /^\s+$/.test(node.value);
 }
 
-scopedPlugin.postcss = true
-export default scopedPlugin
+scopedPlugin.postcss = true;
+export default scopedPlugin;

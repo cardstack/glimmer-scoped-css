@@ -7,6 +7,7 @@ import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
 import { md5 } from 'super-fast-md5';
 import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
+import noGlobalScopedStylesPlugin from './no-global-postcss-plugin';
 import { basename } from 'path';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
@@ -133,9 +134,9 @@ const noGlobalScopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
               );
             }
 
-            outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
-              inputCSS
-            ).css;
+            outputCSS = postcss([
+              noGlobalScopedStylesPlugin(dataAttribute),
+            ]).process(inputCSS).css;
           } else {
             return;
           }
