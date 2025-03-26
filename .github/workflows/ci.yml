@@ -36,11 +36,13 @@ jobs:
         run: pnpm lint
       - name: Run Tests
         run: pnpm test
+      - name: Run No Global tests
+        run: pnpm test-no-global
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 
   floating:
-    name: "Floating Dependencies"
+    name: 'Floating Dependencies'
     runs-on: ubuntu-latest
 
     steps:
