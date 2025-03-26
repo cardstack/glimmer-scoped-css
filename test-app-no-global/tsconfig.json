@@ -7,10 +7,10 @@
     // work with TypeScript.
     "baseUrl": ".",
     "paths": {
-      "test-app/tests/*": [
+      "test-app-no-global/tests/*": [
         "tests/*"
       ],
-      "test-app/*": [
+      "test-app-no-global/*": [
         "app/*"
       ],
       "*": [

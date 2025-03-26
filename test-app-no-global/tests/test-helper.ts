@@ -1,5 +1,5 @@
-import Application from 'test-app/app';
-import config from 'test-app/config/environment';
+import Application from 'test-app-no-global/app';
+import config from 'test-app-no-global/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

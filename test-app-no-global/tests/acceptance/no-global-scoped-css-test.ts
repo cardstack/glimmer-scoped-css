@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { visit } from '@ember/test-helpers';
-import { setupApplicationTest } from 'test-app/tests/helpers';
+import { setupApplicationTest } from 'test-app-no-global/tests/helpers';
 
 module('Acceptance | scoped css with no global', function (hooks) {
   setupApplicationTest(hooks);
