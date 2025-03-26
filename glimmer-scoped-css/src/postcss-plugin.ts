@@ -27,6 +27,7 @@
 
 import { PluginCreator, Rule, AtRule } from 'postcss'
 import selectorParser from 'postcss-selector-parser'
+import { GlimmerScopedCSSOptions } from '.';
 
 const animationNameRE = /^(-\w+-)?animation-name$/
 const animationRE = /^(-\w+-)?animation$/
@@ -35,14 +36,21 @@ function warn(message: string){
   console.warn(message);
 }
 
-const scopedPlugin: PluginCreator<string> = (id = '') => {
+export interface Options extends GlimmerScopedCSSOptions {
+  id: string;
+}
+
+const scopedPlugin: PluginCreator<Options> = (options) => {
+  const id = options?.id ?? '';
+  const noGlobal = options?.noGlobal ?? false;
+
   const keyframes = Object.create(null)
   const shortId = id.replace(/^data-v-/, '')
 
   return {
     postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
-      processRule(id, rule)
+      processRule(id, rule, noGlobal)
     },
     AtRule(node) {
       if (
@@ -91,7 +99,7 @@ const scopedPlugin: PluginCreator<string> = (id = '') => {
 
 const processedRules = new WeakSet<Rule>()
 
-function processRule(id: string, rule: Rule) {
+function processRule(id: string, rule: Rule, noGlobal: boolean) {
   if (
     processedRules.has(rule) ||
     (rule.parent &&
@@ -103,7 +111,7 @@ function processRule(id: string, rule: Rule) {
   processedRules.add(rule)
   rule.selector = selectorParser(selectorRoot => {
     selectorRoot.each(selector => {
-      rewriteSelector(id, selector, selectorRoot)
+      rewriteSelector(id, selector, selectorRoot, noGlobal)
     })
   }).processSync(rule.selector)
 }
@@ -112,6 +120,7 @@ function rewriteSelector(
   id: string,
   selector: selectorParser.Selector,
   selectorRoot: selectorParser.Root,
+  noGlobal: boolean
 ) {
   let node: selectorParser.Node | null = null
   let shouldInject = true
@@ -148,6 +157,11 @@ function rewriteSelector(
       // global: replace with inner selector and do not inject [id].
       // ::global(.foo) -> .foo
       if (value === ':global') {
+        if (noGlobal) {
+          warn(`:global is not supported in this environment, in this selector: ${selector}`);
+          return false;
+        }
+
         selectorRoot.insertAfter(selector, n.nodes[0]!)
         selectorRoot.removeChild(selector)
         return false
