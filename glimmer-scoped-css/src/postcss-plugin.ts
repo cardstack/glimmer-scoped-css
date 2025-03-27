@@ -42,7 +42,7 @@ export interface Options extends GlimmerScopedCSSOptions {
 
 const scopedPlugin: PluginCreator<Options> = (options) => {
   const id = options?.id ?? '';
-  const noGlobal = options?.noGlobal ?? false;
+  const optionsWithoutId = { ...options, id: undefined };
 
   const keyframes = Object.create(null)
   const shortId = id.replace(/^data-v-/, '')
@@ -50,7 +50,7 @@ const scopedPlugin: PluginCreator<Options> = (options) => {
   return {
     postcssPlugin: 'glimmer-scoped-css',
     Rule(rule) {
-      processRule(id, rule, noGlobal)
+      processRule(id, rule, optionsWithoutId)
     },
     AtRule(node) {
       if (
@@ -99,7 +99,7 @@ const scopedPlugin: PluginCreator<Options> = (options) => {
 
 const processedRules = new WeakSet<Rule>()
 
-function processRule(id: string, rule: Rule, noGlobal: boolean) {
+function processRule(id: string, rule: Rule, options: GlimmerScopedCSSOptions) {
   if (
     processedRules.has(rule) ||
     (rule.parent &&
@@ -111,7 +111,7 @@ function processRule(id: string, rule: Rule, noGlobal: boolean) {
   processedRules.add(rule)
   rule.selector = selectorParser(selectorRoot => {
     selectorRoot.each(selector => {
-      rewriteSelector(id, selector, selectorRoot, noGlobal)
+      rewriteSelector(id, selector, selectorRoot, options)
     })
   }).processSync(rule.selector)
 }
@@ -120,7 +120,7 @@ function rewriteSelector(
   id: string,
   selector: selectorParser.Selector,
   selectorRoot: selectorParser.Root,
-  noGlobal: boolean
+  options: GlimmerScopedCSSOptions
 ) {
   let node: selectorParser.Node | null = null
   let shouldInject = true
@@ -157,7 +157,7 @@ function rewriteSelector(
       // global: replace with inner selector and do not inject [id].
       // ::global(.foo) -> .foo
       if (value === ':global') {
-        if (noGlobal) {
+        if (options.noGlobal) {
           warn(`:global is not supported in this environment, in this selector: ${selector}`);
           return false;
         }
