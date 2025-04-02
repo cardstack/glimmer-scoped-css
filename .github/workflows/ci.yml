@@ -36,6 +36,8 @@ jobs:
         run: pnpm lint
       - name: Run Tests
         run: pnpm test
+      - name: Run No Global tests
+        run: pnpm test-no-global
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 
@@ -60,6 +62,8 @@ jobs:
         working-directory: test-addon-to-import
       - name: Run Tests
         run: pnpm test
+      - name: Run No Global tests
+        run: pnpm test-no-global
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 

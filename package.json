@@ -25,7 +25,8 @@
     "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
     "start:tests": "pnpm --filter test-app start",
     "test": "pnpm --filter test-app test",
-    "test-build-failure": "pnpm --filter failing-test-app test"
+    "test-build-failure": "pnpm --filter failing-test-app test",
+    "test-no-global": "pnpm --filter test-app-no-global test"
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "^5.0.0",

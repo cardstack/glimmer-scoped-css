@@ -1,20 +1,27 @@
-import plugin from './ast-transform';
+import { generateScopedCSSPlugin } from './ast-transform';
 
-export function installScopedCSS(registry: any) {
-  registry.add('htmlbars-ast-plugin', buildASTPlugin());
+export interface GlimmerScopedCSSOptions {
+  noGlobal?: boolean;
 }
 
-export function buildASTPlugin() {
+export function installScopedCSS(
+  registry: any,
+  options: GlimmerScopedCSSOptions
+) {
+  registry.add('htmlbars-ast-plugin', buildASTPlugin(options));
+}
+
+export function buildASTPlugin(options: GlimmerScopedCSSOptions) {
   return {
     name: 'glimmer-scoped-css',
-    plugin,
+    plugin: generateScopedCSSPlugin(options),
     baseDir: function () {
       return __dirname;
     },
     parallelBabel: {
       requireFile: __filename,
       buildUsing: 'buildASTPlugin',
-      params: {},
+      params: options,
     },
   };
 }

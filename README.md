@@ -56,6 +56,8 @@ The generated CSS will look like this:
 }
 ```
 
+**If your environment does not support global styles, you can cause them to be ignored [in an application](#in-an-ember-application).**
+
 ### `:deep`
 
 Using `:deep` on a selector will attach the scoping attribute to the element selector before it.
@@ -160,6 +162,16 @@ ember install glimmer-scoped-css
         }
       },
     };
+   ```
+
+   If you want to block use of `:global`:
+
+   ```js
+     setupPreprocessorRegistry(type, registry) {
+       if (type === 'parent') {
+         installScopedCSS(registry, { noGlobal: true });
+       }
+     }
    ```
 
 ### In an Ember addon
