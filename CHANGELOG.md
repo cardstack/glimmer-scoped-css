@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-02)
+
+glimmer-scoped-css 0.8.0 (minor)
+
+#### :rocket: Enhancement
+* `glimmer-scoped-css`
+  * [#44](https://github.com/cardstack/glimmer-scoped-css/pull/44) Add option to ignore `:global` ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
 ## Release (2024-10-25)
 
 glimmer-scoped-css 0.7.0 (major)
