@@ -89,7 +89,6 @@ This is a pre-1.0 release with several limitations:
   ```
   unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9-58ccb4dfe0"
   ```
-- An open [prettier issue](https://github.com/prettier/prettier/issues/14261) means that if you apply prettier to your handlebars, it will format your CSS in a silly way.
 
 ## Compatibility
 
