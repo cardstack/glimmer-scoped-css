@@ -1,5 +1,15 @@
 # Changelog
 
+## Release (2025-04-14)
+
+
+
+#### :memo: Documentation
+* [#46](https://github.com/cardstack/glimmer-scoped-css/pull/46) prettier 3.3.5+ now formats <style> in gjs/gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-04-02)
 
 glimmer-scoped-css 0.8.0 (minor)
