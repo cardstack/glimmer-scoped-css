@@ -1,6 +1,6 @@
 /**
- * These functions convert arbitrary CSS to URI-safe strings that are used
- * as data-URI virtual imports.
+ * These functions convert between arbitrary normally formatted CSS and
+ * URI-safe strings that are used as data-URI virtual imports.
  */
 
 // Adapted from https://developer.mozilla.org/en-US/docs/Web/API/Window/btoa#unicode_strings
