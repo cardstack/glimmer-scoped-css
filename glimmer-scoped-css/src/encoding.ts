@@ -3,6 +3,8 @@
  * as data-URI virtual imports.
  */
 
+// Adapted from https://developer.mozilla.org/en-US/docs/Web/API/Window/btoa#unicode_strings
+
 export function encodeCSS(plainCSSString: string) {
   const binString = Array.from(
     new TextEncoder().encode(plainCSSString),
