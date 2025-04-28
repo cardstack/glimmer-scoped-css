@@ -1,4 +1,5 @@
 import { generateScopedCSSPlugin } from './ast-transform';
+import { decodeCSS } from './encoding';
 
 export interface GlimmerScopedCSSOptions {
   noGlobal?: boolean;
@@ -40,5 +41,5 @@ export function decodeScopedCSSRequest(request: string): {
   if (!m) {
     throw new Error(`not a scoped CSS request: ${request}`);
   }
-  return { fromFile: m[1]!, css: atob(decodeURIComponent(m[2]!)) };
+  return { fromFile: m[1]!, css: decodeCSS(m[2]!) };
 }

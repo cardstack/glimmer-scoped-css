@@ -8,6 +8,10 @@ const MultipleInner = <template>
     p {
       font-weight: 700;
     }
+
+    p:before {
+      content: '✓';
+    }
   </style>
 </template>;
 
