@@ -1,5 +1,20 @@
 # Changelog
 
+## Release (2025-04-28)
+
+glimmer-scoped-css 0.8.1 (patch)
+
+#### :bug: Bug Fix
+* `glimmer-scoped-css`, `test-app`
+  * [#49](https://github.com/cardstack/glimmer-scoped-css/pull/49) Fix CSS encoding to handle non-ASCII characters ([@backspace](https://github.com/backspace))
+
+#### :memo: Documentation
+* [#46](https://github.com/cardstack/glimmer-scoped-css/pull/46) prettier 3.5+ now formats <style> in gjs/gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-04-02)
 
 glimmer-scoped-css 0.8.0 (minor)
