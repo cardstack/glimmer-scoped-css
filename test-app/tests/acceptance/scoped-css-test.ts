@@ -86,6 +86,17 @@ module('Acceptance | scoped css', function (hooks) {
       'font-weight': '700',
     });
 
+    let multipleInnerElement = find('[data-test-multiple-inner]');
+    let multipleInnerElementBeforeStyle = getComputedStyle(
+      multipleInnerElement!,
+      ':before'
+    );
+
+    assert.strictEqual(
+      multipleInnerElementBeforeStyle.getPropertyValue('content'),
+      '"✓"'
+    );
+
     assert.dom('[data-test-multiple-outer]').hasStyle({
       'font-style': 'italic',
       'font-weight': '900',

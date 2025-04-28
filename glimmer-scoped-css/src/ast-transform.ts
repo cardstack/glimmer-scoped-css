@@ -9,6 +9,7 @@ import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
 import { basename } from 'path';
 import { GlimmerScopedCSSOptions } from '.';
+import { encodeCSS } from './encoding';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -76,7 +77,7 @@ export function generateScopedCSSPlugin(
             // TODO: hard coding the loader chain means we ignore the other
             // prevailing rules (and we're even assuming these loaders are
             // available)
-            let encodedCss = encodeURIComponent(btoa(outputCSS));
+            let encodedCss = encodeCSS(outputCSS);
 
             jsutils.importForSideEffect(
               `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
