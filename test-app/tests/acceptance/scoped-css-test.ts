@@ -86,8 +86,8 @@ module('Acceptance | scoped css', function (hooks) {
       'font-weight': '700',
     });
 
-    let multipleInnerElement = find('[data-test-multiple-inner]');
-    let multipleInnerElementBeforeStyle = getComputedStyle(
+    const multipleInnerElement = find('[data-test-multiple-inner]');
+    const multipleInnerElementBeforeStyle = getComputedStyle(
       multipleInnerElement!,
       ':before'
     );
