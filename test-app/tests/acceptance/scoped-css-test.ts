@@ -130,9 +130,7 @@ module('Acceptance | scoped css', function (hooks) {
   test('an addon can use scoped styles', async function (assert) {
     await visit('/');
 
-    const underlineComponent = find(
-      '[data-scoped-underline-addon-component]'
-    );
+    const underlineComponent = find('[data-scoped-underline-addon-component]');
     if (!underlineComponent) {
       throw new Error(
         '[data-scoped-underline-addon-component] element not found'
