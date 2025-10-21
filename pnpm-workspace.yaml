@@ -1,4 +1,6 @@
 packages:
   - 'failing-test-app'
   - 'glimmer-scoped-css'
+  - 'test-addon-to-import'
   - 'test-app'
+  - 'test-app-no-global'

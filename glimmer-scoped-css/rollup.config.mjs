@@ -18,6 +18,7 @@ export default {
     addon.publicEntrypoints([
       'index.js',
       'ast-transform.js',
+      'rollup.js',
       'webpack.js',
       'virtual-loader.js',
     ]),

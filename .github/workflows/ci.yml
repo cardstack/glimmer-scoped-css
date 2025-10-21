@@ -17,22 +17,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 8
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build test-addon-to-import
+        run: pnpm build
+        working-directory: test-addon-to-import
       - name: Lint
         run: pnpm lint
       - name: Run Tests
         run: pnpm test
+      - name: Run No Global tests
+        run: pnpm test-no-global
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 
@@ -41,19 +46,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 8
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --no-lockfile
+      - name: Build test-addon-to-import
+        run: pnpm build
+        working-directory: test-addon-to-import
       - name: Run Tests
         run: pnpm test
+      - name: Run No Global tests
+        run: pnpm test-no-global
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 
@@ -76,18 +86,21 @@ jobs:
           - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 8
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build test-addon-to-import
+        run: pnpm build
+        working-directory: test-addon-to-import
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
         working-directory: test-app

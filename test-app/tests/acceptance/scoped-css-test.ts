@@ -86,25 +86,20 @@ module('Acceptance | scoped css', function (hooks) {
       'font-weight': '700',
     });
 
+    const multipleInnerElement = find('[data-test-multiple-inner]');
+    const multipleInnerElementBeforeStyle = getComputedStyle(
+      multipleInnerElement!,
+      ':before'
+    );
+
+    assert.strictEqual(
+      multipleInnerElementBeforeStyle.getPropertyValue('content'),
+      '"✓"'
+    );
+
     assert.dom('[data-test-multiple-outer]').hasStyle({
       'font-style': 'italic',
       'font-weight': '900',
-    });
-  });
-
-  test('unscoped style elements are passed through without the unscoped attribute', async function (assert) {
-    await visit('/');
-
-    assert
-      .dom('[data-test-unscoped-root-style]')
-      .exists()
-      .doesNotHaveAttribute('unscoped');
-
-    assert.dom('style[unscoped]').doesNotExist();
-
-    assert.dom('[data-test-global-p]').hasStyle({
-      'text-align': 'end',
-      'text-transform': 'uppercase',
     });
   });
 
@@ -129,6 +124,32 @@ module('Acceptance | scoped css', function (hooks) {
 
     assert.dom('[data-test-uses-an-import]').hasStyle({
       color: 'rgb(0, 250, 0)',
+    });
+  });
+
+  test('an addon can use scoped styles', async function (assert) {
+    await visit('/');
+
+    assert.dom('[data-scoped-underline-addon-component]').hasStyle({
+      textDecoration: 'underline solid rgb(0, 0, 0)',
+    });
+
+    assert
+      .dom('[data-test-underline-component-outside-addon]')
+      .doesNotHaveStyle({
+        textDecoration: 'underline solid rgb(0, 0, 0)',
+      });
+
+    assert.dom('[data-test-paragraph-with-class-styled-by-addon]').hasStyle({
+      textDecoration: 'underline solid rgb(0, 0, 0)',
+    });
+  });
+
+  test('unscoped styles can use interpolation', async function (assert) {
+    await visit('/');
+
+    assert.dom('.interpolated-style-input').hasStyle({
+      color: 'rgb(255, 192, 203)',
     });
   });
 });

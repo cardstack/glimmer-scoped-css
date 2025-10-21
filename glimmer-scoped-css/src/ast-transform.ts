@@ -8,6 +8,8 @@ import { md5 } from 'super-fast-md5';
 import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
 import { basename } from 'path';
+import { GlimmerScopedCSSOptions } from '.';
+import { encodeCSS } from './encoding';
 
 type Env = WithJSUtils<ASTPluginEnvironment> & {
   filename: string;
@@ -20,86 +22,100 @@ function uniqueIdentifier(filename: string): string {
   return md5(filename).slice(0, 10);
 }
 
-const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
-  let dataAttributePrefix = `data-scopedcss-${uniqueIdentifier(env.filename)}`;
-  let currentTemplateStyleHash: string;
+export function generateScopedCSSPlugin(
+  options: GlimmerScopedCSSOptions
+): ASTPluginBuilder<Env> {
+  return (env) => {
+    let dataAttributePrefix = `data-scopedcss-${uniqueIdentifier(
+      env.filename
+    )}`;
+    let currentTemplateStyleHash: string;
 
-  let {
-    syntax: { builders },
-    meta: { jsutils },
-  } = env;
+    let {
+      syntax: { builders },
+      meta: { jsutils },
+    } = env;
 
-  return {
-    name: 'glimmer-scoped-css',
+    return {
+      name: 'glimmer-scoped-css',
 
-    visitor: {
-      Template(node) {
-        let styleTag = node.body.find(
-          (n) => n.type === 'ElementNode' && n.tag === 'style'
-        );
-
-        if (styleTag) {
-          currentTemplateStyleHash = md5(
-            textContent(styleTag as ASTv1.ElementNode)
-          ).slice(0, 10);
-        }
-
-        return node;
-      },
-      ElementNode(node, walker) {
-        let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
-
-        if (node.tag === 'style') {
-          if (hasUnscopedAttribute(node)) {
-            return removeUnscopedAttribute(node);
-          }
-
-          if (walker.parent?.node.type !== 'Template') {
-            throw new Error(
-              '<style> tags must be at the root of the template, they cannot be nested'
-            );
-          }
-          let inputCSS = textContent(node);
-          let outputCSS = postcss([scopedStylesPlugin(dataAttribute)]).process(
-            inputCSS
-          ).css;
-
-          // TODO: hard coding the loader chain means we ignore the other
-          // prevailing rules (and we're even assuming these loaders are
-          // available)
-          let encodedCss = encodeURIComponent(btoa(outputCSS));
-
-          jsutils.importForSideEffect(
-            `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
+      visitor: {
+        Template(node) {
+          let styleTag = node.body.find(
+            (n) => n.type === 'ElementNode' && n.tag === 'style'
           );
-          // Return an empty <style> stub so Glimmer still has something to remove during teardown.
-          // Without this stub, the runtime-inserted <style> lives in <head> and Ember will throw
-          // when it later tries to remove the original node. The stub also carries the unique
-          // scoped attribute value so the runtime script can detect which stylesheet to update.
-          node.attributes = [
-            builders.attr(
-              'data-boxel-scoped-css-stub',
-              builders.text(dataAttribute)
-            ),
-          ];
-          node.children = [];
+
+          if (styleTag) {
+            currentTemplateStyleHash = md5(
+              textContent(styleTag as ASTv1.ElementNode)
+            ).slice(0, 10);
+          }
 
           return node;
-        } else {
-          if (node.tag.startsWith(':')) {
+        },
+        ElementNode(node, walker) {
+          let dataAttribute = `${dataAttributePrefix}-${currentTemplateStyleHash}`;
+
+          if (node.tag === 'style') {
+            let inputCSS = textContent(node);
+            let outputCSS;
+
+            if (hasScopedAttribute(node)) {
+              if (walker.parent?.node.type !== 'Template') {
+                throw new Error(
+                  '<style> tags must be at the root of the template, they cannot be nested'
+                );
+              }
+
+              outputCSS = postcss([
+                scopedStylesPlugin({ id: dataAttribute, ...options }),
+              ]).process(inputCSS).css;
+            } else {
+              return;
+            }
+
+            // TODO: hard coding the loader chain means we ignore the other
+            // prevailing rules (and we're even assuming these loaders are
+            // available)
+            let encodedCss = encodeCSS(outputCSS);
+
+            jsutils.importForSideEffect(
+              `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
+            );
+
+            // Return an empty <style> stub so Glimmer still has something to remove during teardown.
+            // Without this stub, the runtime-inserted <style> lives in <head> and Ember will throw
+            // when it later tries to remove the original node. The stub also carries the unique
+            // scoped attribute value so the runtime script can detect which stylesheet to update.
+            node.attributes = [
+              builders.attr(
+                'data-boxel-scoped-css-stub',
+                builders.text(dataAttribute)
+              ),
+            ];
+            node.children = [];
+
             return node;
           } else {
-            if (currentTemplateStyleHash) {
-              node.attributes.push(
-                builders.attr(dataAttribute, builders.text(''))
-              );
+            if (node.tag.startsWith(':')) {
+              return node;
+            } else {
+              if (currentTemplateStyleHash) {
+                node.attributes.push(
+                  builders.attr(dataAttribute, builders.text(''))
+                );
+              }
             }
           }
-        }
+        },
       },
-    },
+    };
   };
-};
+}
+
+const scopedCSSTransform: ASTPluginBuilder<Env> = generateScopedCSSPlugin({
+  noGlobal: false,
+});
 
 export default scopedCSSTransform;
 
@@ -110,17 +126,10 @@ function textContent(node: ASTv1.ElementNode): string {
   return textChildren.map((c) => c.chars).join('');
 }
 
-const UNSCOPED_ATTRIBUTE_NAME = 'unscoped';
+const SCOPED_ATTRIBUTE_NAME = 'scoped';
 
-function hasUnscopedAttribute(node: ASTv1.ElementNode): boolean {
+function hasScopedAttribute(node: ASTv1.ElementNode): boolean {
   return node.attributes.some(
-    (attribute) => attribute.name === UNSCOPED_ATTRIBUTE_NAME
+    (attribute) => attribute.name === SCOPED_ATTRIBUTE_NAME
   );
-}
-
-function removeUnscopedAttribute(node: ASTv1.ElementNode): ASTv1.ElementNode {
-  node.attributes = node.attributes.filter(
-    (attribute) => attribute.name !== UNSCOPED_ATTRIBUTE_NAME
-  );
-  return node;
 }

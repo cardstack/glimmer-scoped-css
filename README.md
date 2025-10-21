@@ -5,7 +5,7 @@
 If you have `app/components/something.hbs`:
 
 ```html
-<style>
+<style scoped>
   p {
     color: blue;
   }
@@ -56,6 +56,8 @@ The generated CSS will look like this:
 }
 ```
 
+**If your environment does not support global styles, you can cause them to be ignored [in an application](#in-an-ember-application).**
+
 ### `:deep`
 
 Using `:deep` on a selector will attach the scoping attribute to the element selector before it.
@@ -82,11 +84,11 @@ This is a pre-1.0 release with several limitations:
 - it hardcodes Webpack CSS loaders
   - this works fine when you have the default loaders configured by `@embroider/webpack`
 - the styles are in a `style` element in `index.html`, not linked
+- scoped styles cannot use interpolation: `{{whatever}}` will be duplicated unprocessed in the stylesheet
 - there is log noise about source maps like this:
   ```
   unexpectedly found "<style>\n  p { color: blue" when slicing source, but expected "data-scopedcss-53259f1da9-58ccb4dfe0"
   ```
-- An open [prettier issue](https://github.com/prettier/prettier/issues/14261) means that if you apply prettier to your handlebars, it will format your CSS in a silly way.
 
 ## Compatibility
 
@@ -161,7 +163,52 @@ ember install glimmer-scoped-css
     };
    ```
 
+   If you want to block use of `:global`:
+
+   ```js
+     setupPreprocessorRegistry(type, registry) {
+       if (type === 'parent') {
+         installScopedCSS(registry, { noGlobal: true });
+       }
+     }
+   ```
+
 ### In an Ember addon
+
+#### v2 with Rollup
+
+2. Install the plugin in the addon’s Rollup config `rollup.config.mjs`:
+
+   ```diff
+    import { Addon } from '@embroider/addon-dev/rollup';
+    import { babel } from '@rollup/plugin-babel';
+    import copy from 'rollup-plugin-copy';
+   +import { scopedCSS } from 'glimmer-scoped-css/rollup';
+
+    const addon = new Addon({
+      srcDir: 'src',
+      destDir: 'dist',
+    });
+
+    export default {
+      output: addon.output(),
+
+      plugins: [
+   +    scopedCSS('src'),
+        …
+   ```
+
+3. Add the AST transform in `babel.config.json`:
+
+   ```diff
+    ["babel-plugin-ember-template-compilation", {
+      "targetFormat": "hbs",
+   -  "transforms": []
+   +  "transforms": ["glimmer-scoped-css/ast-transform"]
+    }],
+   ```
+
+#### v1
 
 2. Install the preprocessor directly in the addon’s `index.js`:
 
@@ -184,9 +231,9 @@ ember install glimmer-scoped-css
 
 ## Usage
 
-Add a top-level `<style>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
+Add a top-level `<style scoped>` element in your component `.hbs` file and it will be scoped to elements in that component only. It also works in [`<template>` in `.gjs`/`.gts` files](https://github.com/ember-template-imports/ember-template-imports).
 
-Nested `<style>` elements cannot be processed for scoping. Use `<style unscoped>` if you need a nested element, it will not receive scoping attributes and will be passed through to output without the `unscoped` attribute.
+Nested `<style scoped>` elements cannot be processed for scoping. Use `<style>` directly if you need a nested element, it will not receive scoping attributes and will be passed through to output.
 
 ## Architecture
 

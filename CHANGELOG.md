@@ -1,9 +1,80 @@
+# Changelog
+
+## Release (2025-04-28)
+
+glimmer-scoped-css 0.8.1 (patch)
+
+#### :bug: Bug Fix
+* `glimmer-scoped-css`, `test-app`
+  * [#49](https://github.com/cardstack/glimmer-scoped-css/pull/49) Fix CSS encoding to handle non-ASCII characters ([@backspace](https://github.com/backspace))
+
+#### :memo: Documentation
+* [#46](https://github.com/cardstack/glimmer-scoped-css/pull/46) prettier 3.5+ now formats <style> in gjs/gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-04-02)
+
+glimmer-scoped-css 0.8.0 (minor)
+
+#### :rocket: Enhancement
+* `glimmer-scoped-css`
+  * [#44](https://github.com/cardstack/glimmer-scoped-css/pull/44) Add option to ignore `:global` ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+## Release (2024-10-25)
+
+glimmer-scoped-css 0.7.0 (major)
+
+#### :boom: Breaking Change
+* `failing-test-app`, `glimmer-scoped-css`, `test-app`
+  * [#42](https://github.com/cardstack/glimmer-scoped-css/pull/42) Rollup plugin: support app usage ([@ef4](https://github.com/ef4)). This is breaking because we no longer automatically emit separate CSS files. To maintain the old behavior in a v2 addon build, you will need to upgrade @embroider/addon-dev to get an updated `keepAssets()` that will automatically capture the CSS emitted from glimmer-scoped-css.
+
+#### Committers: 1
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+
+## Release (2024-09-04)
+
+glimmer-scoped-css 0.6.0 (major)
+
+#### :boom: Breaking Change
+* `failing-test-app`, `glimmer-scoped-css`, `test-app`
+  * [#38](https://github.com/cardstack/glimmer-scoped-css/pull/38) Change to require explicit scoping ([@backspace](https://github.com/backspace))
+
+#### :house: Internal
+* [#40](https://github.com/cardstack/glimmer-scoped-css/pull/40) dropping engines declaration ([@ef4](https://github.com/ef4))
+* [#39](https://github.com/cardstack/glimmer-scoped-css/pull/39) Add release-plan ([@ef4](https://github.com/ef4))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
 
 
 
 
 
 
+
+
+
+## v0.5.0 (2024-08-26)
+
+#### :rocket: Enhancement
+* [#36](https://github.com/cardstack/glimmer-scoped-css/pull/36) Add Rollup plugin for v2 addons ([@backspace](https://github.com/backspace))
+
+#### :bug: Bug Fix
+* [#32](https://github.com/cardstack/glimmer-scoped-css/pull/32) Fix build error in applications importing unscoped styles ([@backspace](https://github.com/backspace))
+
+#### :memo: Documentation
+* [#29](https://github.com/cardstack/glimmer-scoped-css/pull/29) Add documentation on iteration ([@backspace](https://github.com/backspace))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
 
 
 ## v0.4.1 (2024-02-01)

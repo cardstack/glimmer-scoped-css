@@ -1,13 +1,16 @@
 {
   "name": "glimmer-scoped-css",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:cardstack/glimmer-scoped-css.git"
   },
   "license": "MIT",
-  "author": "Edward Faulkner <edward@eaf4.com>",
+  "contributors": [
+    "Edward Faulkner <edward@eaf4.com>",
+    "Buck Doyle <b@chromatin.ca>"
+  ],
   "workspaces": [
     "failing-test-app",
     "glimmer-scoped-css",
@@ -22,14 +25,19 @@
     "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
     "start:tests": "pnpm --filter test-app start",
     "test": "pnpm --filter test-app test",
-    "test-build-failure": "pnpm --filter failing-test-app test"
+    "test-build-failure": "pnpm --filter failing-test-app test",
+    "test-no-global": "pnpm --filter test-app-no-global test"
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "^5.0.0",
     "@release-it-plugins/workspaces": "^3.2.0",
     "concurrently": "^7.2.1",
     "prettier": "^2.5.1",
-    "release-it": "^15.5.0"
+    "release-plan": "^0.9.0"
+  },
+  "volta": {
+    "node": "20.11.1",
+    "pnpm": "8.15.5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
