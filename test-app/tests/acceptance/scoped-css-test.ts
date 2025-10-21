@@ -88,7 +88,7 @@ module('Acceptance | scoped css', function (hooks) {
 
     const multipleInnerElement = find('[data-test-multiple-inner]');
     const multipleInnerElementBeforeStyle = getComputedStyle(
-      multipleInnerElement!,
+      multipleInnerElement as Element,
       ':before'
     );
 
@@ -130,13 +130,15 @@ module('Acceptance | scoped css', function (hooks) {
   test('an addon can use scoped styles', async function (assert) {
     await visit('/');
 
-    let underlineComponent = find('[data-scoped-underline-addon-component]');
+    const underlineComponent = find(
+      '[data-scoped-underline-addon-component]'
+    );
     if (!underlineComponent) {
       throw new Error(
         '[data-scoped-underline-addon-component] element not found'
       );
     }
-    let underlineComponentStyles = getComputedStyle(underlineComponent);
+    const underlineComponentStyles = getComputedStyle(underlineComponent);
     assert.strictEqual(
       underlineComponentStyles.textDecorationLine,
       'underline'
@@ -152,7 +154,7 @@ module('Acceptance | scoped css', function (hooks) {
         textDecoration: 'underline rgb(0, 0, 0)',
       });
 
-    let classStyledParagraph = find(
+    const classStyledParagraph = find(
       '[data-test-paragraph-with-class-styled-by-addon]'
     );
     if (!classStyledParagraph) {
@@ -160,7 +162,7 @@ module('Acceptance | scoped css', function (hooks) {
         '[data-test-paragraph-with-class-styled-by-addon] element not found'
       );
     }
-    let classStyledParagraphStyles = getComputedStyle(classStyledParagraph);
+    const classStyledParagraphStyles = getComputedStyle(classStyledParagraph);
     assert.strictEqual(
       classStyledParagraphStyles.textDecorationLine,
       'underline'
