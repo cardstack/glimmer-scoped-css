@@ -130,19 +130,45 @@ module('Acceptance | scoped css', function (hooks) {
   test('an addon can use scoped styles', async function (assert) {
     await visit('/');
 
-    assert.dom('[data-scoped-underline-addon-component]').hasStyle({
-      textDecoration: 'underline solid rgb(0, 0, 0)',
-    });
+    let underlineComponent = find('[data-scoped-underline-addon-component]');
+    if (!underlineComponent) {
+      throw new Error(
+        '[data-scoped-underline-addon-component] element not found'
+      );
+    }
+    let underlineComponentStyles = getComputedStyle(underlineComponent);
+    assert.strictEqual(
+      underlineComponentStyles.textDecorationLine,
+      'underline'
+    );
+    assert.strictEqual(
+      underlineComponentStyles.textDecorationColor,
+      'rgb(0, 0, 0)'
+    );
 
     assert
       .dom('[data-test-underline-component-outside-addon]')
       .doesNotHaveStyle({
-        textDecoration: 'underline solid rgb(0, 0, 0)',
+        textDecoration: 'underline rgb(0, 0, 0)',
       });
 
-    assert.dom('[data-test-paragraph-with-class-styled-by-addon]').hasStyle({
-      textDecoration: 'underline solid rgb(0, 0, 0)',
-    });
+    let classStyledParagraph = find(
+      '[data-test-paragraph-with-class-styled-by-addon]'
+    );
+    if (!classStyledParagraph) {
+      throw new Error(
+        '[data-test-paragraph-with-class-styled-by-addon] element not found'
+      );
+    }
+    let classStyledParagraphStyles = getComputedStyle(classStyledParagraph);
+    assert.strictEqual(
+      classStyledParagraphStyles.textDecorationLine,
+      'underline'
+    );
+    assert.strictEqual(
+      classStyledParagraphStyles.textDecorationColor,
+      'rgb(0, 0, 0)'
+    );
   });
 
   test('unscoped styles can use interpolation', async function (assert) {
