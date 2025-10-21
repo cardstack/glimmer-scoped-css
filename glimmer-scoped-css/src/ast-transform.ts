@@ -72,8 +72,19 @@ const scopedCSSTransform: ASTPluginBuilder<Env> = (env) => {
           jsutils.importForSideEffect(
             `./${basename(env.filename)}.${encodedCss}.glimmer-scoped.css`
           );
+          // Return an empty <style> stub so Glimmer still has something to remove during teardown.
+          // Without this stub, the runtime-inserted <style> lives in <head> and Ember will throw
+          // when it later tries to remove the original node. The stub also carries the unique
+          // scoped attribute value so the runtime script can detect which stylesheet to update.
+          node.attributes = [
+            builders.attr(
+              'data-boxel-scoped-css-stub',
+              builders.text(dataAttribute)
+            ),
+          ];
+          node.children = [];
 
-          return null;
+          return node;
         } else {
           if (node.tag.startsWith(':')) {
             return node;
