@@ -1,5 +1,10 @@
 # Changelog
 
+
+
+
+
+
 ## Release (2025-04-28)
 
 glimmer-scoped-css 0.8.1 (patch)

@@ -1,17 +1,8 @@
 {
   "solution": {
     "glimmer-scoped-css": {
-      "impact": "patch",
-      "oldVersion": "0.8.0",
-      "newVersion": "0.8.1",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        }
-      ],
-      "pkgJSONPath": "./glimmer-scoped-css/package.json"
+      "oldVersion": "0.8.1"
     }
   },
-  "description": "## Release (2025-04-28)\n\nglimmer-scoped-css 0.8.1 (patch)\n\n#### :bug: Bug Fix\n* `glimmer-scoped-css`, `test-app`\n  * [#49](https://github.com/cardstack/glimmer-scoped-css/pull/49) Fix CSS encoding to handle non-ASCII characters ([@backspace](https://github.com/backspace))\n\n#### :memo: Documentation\n* [#46](https://github.com/cardstack/glimmer-scoped-css/pull/46) prettier 3.5+ now formats <style> in gjs/gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Buck Doyle ([@backspace](https://github.com/backspace))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "\n\n\n\n"
 }
