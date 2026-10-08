@@ -34,10 +34,14 @@ jobs:
         working-directory: test-addon-to-import
       - name: Lint
         run: pnpm lint
+      - name: Check test-app-vite copies
+        run: pnpm check-vite-app-copies
       - name: Run Tests
         run: pnpm test
       - name: Run No Global tests
         run: pnpm test-no-global
+      - name: Run Vite tests
+        run: pnpm test-vite
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 
@@ -64,6 +68,8 @@ jobs:
         run: pnpm test
       - name: Run No Global tests
         run: pnpm test-no-global
+      - name: Run Vite tests
+        run: pnpm test-vite
       - name: Run Build Failure Test
         run: pnpm test-build-failure
 
@@ -75,15 +81,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        try-scenario:
-          - ember-lts-3.28
-          - ember-lts-4.4
-          - ember-release
-          - ember-beta
-          - ember-canary
-          - ember-classic
-          - embroider-safe
-          - embroider-optimized
+        # Ember 7 builds only with Embroider 4 and Vite, so its channels run in
+        # test-app-vite. test-app covers the versions Embroider 3 builds.
+        include:
+          - { try-scenario: ember-lts-3.28, app: test-app }
+          - { try-scenario: ember-lts-4.12, app: test-app }
+          - { try-scenario: ember-lts-5.12, app: test-app }
+          - { try-scenario: ember-lts-6.12, app: test-app }
+          - { try-scenario: ember-classic, app: test-app }
+          - { try-scenario: embroider-safe, app: test-app }
+          - { try-scenario: embroider-optimized, app: test-app }
+          - { try-scenario: ember-release, app: test-app-vite }
+          - { try-scenario: ember-beta, app: test-app-vite }
+          - { try-scenario: ember-canary, app: test-app-vite }
 
     steps:
       - uses: actions/checkout@v4
@@ -103,4 +113,4 @@ jobs:
         working-directory: test-addon-to-import
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
-        working-directory: test-app
+        working-directory: ${{ matrix.app }}
