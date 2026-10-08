@@ -131,17 +131,20 @@ module('Acceptance | scoped css', function (hooks) {
     await visit('/');
 
     assert.dom('[data-scoped-underline-addon-component]').hasStyle({
-      textDecoration: 'underline solid rgb(0, 0, 0)',
+      textDecorationLine: 'underline',
+      textDecorationColor: 'rgb(0, 0, 0)',
     });
 
     assert
       .dom('[data-test-underline-component-outside-addon]')
       .doesNotHaveStyle({
-        textDecoration: 'underline solid rgb(0, 0, 0)',
+        textDecorationLine: 'underline',
+        textDecorationColor: 'rgb(0, 0, 0)',
       });
 
     assert.dom('[data-test-paragraph-with-class-styled-by-addon]').hasStyle({
-      textDecoration: 'underline solid rgb(0, 0, 0)',
+      textDecorationLine: 'underline',
+      textDecorationColor: 'rgb(0, 0, 0)',
     });
   });
 
