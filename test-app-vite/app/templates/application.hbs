@@ -1,0 +1,23 @@
+{{page-title "TestApp"}}
+
+<Outer>
+  <:block>
+    <p>
+      Paragraph in a named block
+    </p>
+  </:block>
+</Outer>
+
+<p class="global" data-test-global-p>
+  Paragraph with a class from a component style block
+</p>
+
+<Multiple />
+
+<UsesAnImport />
+
+<p class="addon-component" data-test-paragraph-with-class-styled-by-addon>This has a class that makes it underlined because of an unscoped style in an addon.</p>
+
+<HasInterpolatedStyle />
+
+{{outlet}}

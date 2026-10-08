@@ -1,6 +1,5 @@
 'use strict';
 
-const getChannelURL = require('ember-source-channel-url');
 const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
 
 // Ember 3.28 needs the ember-cli and test packages that still support it. The
@@ -18,7 +17,8 @@ const ember328DevDependencies = {
   'ember-source': '~3.28.12',
 };
 
-
+// Ember 7 builds only with Embroider 4 and Vite, so its channels run in
+// test-app-vite instead.
 module.exports = async function () {
   return {
     packageManager: 'pnpm',
@@ -50,30 +50,6 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~6.12.0',
-          },
-        },
-      },
-      {
-        name: 'ember-release',
-        npm: {
-          devDependencies: {
-            'ember-source': await getChannelURL('release'),
-          },
-        },
-      },
-      {
-        name: 'ember-beta',
-        npm: {
-          devDependencies: {
-            'ember-source': await getChannelURL('beta'),
-          },
-        },
-      },
-      {
-        name: 'ember-canary',
-        npm: {
-          devDependencies: {
-            'ember-source': await getChannelURL('canary'),
           },
         },
       },

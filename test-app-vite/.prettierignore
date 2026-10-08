@@ -1,0 +1,19 @@
+# unconventional js
+/blueprints/*/files/
+
+# compiled output
+/dist/
+
+# misc
+/coverage/
+!.*
+.*/
+/pnpm-lock.yaml
+ember-cli-update.json
+*.html
+
+# Copies of test-app files, linted and formatted there; scripts/check-vite-app-copies.mjs
+# keeps them identical.
+/app/components/
+/app/templates/application.hbs
+/tests/acceptance/scoped-css-test.ts

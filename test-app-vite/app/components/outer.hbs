@@ -1,0 +1,41 @@
+<style scoped>
+  p { color: blue; }
+
+  /* This exercises a bug fix related to base64 encoding of CSS */
+  p ~ .something, h1 ~ .something {
+    display: none;
+  }
+
+  :global(.global) {
+    color: red;
+  }
+
+  div :deep(pre) {
+    color: green;
+  }
+</style>
+<style data-test-unscoped-root-style>
+  p {
+    text-align: end;
+  }
+</style>
+
+<h1 data-test-outer-h1>
+  Outer h1
+</h1>
+<p data-test-outer-p>
+  Outer p.
+</p>
+
+<div>
+  <Inner />
+
+  <style>
+    p {
+      text-transform: uppercase;
+    }
+  </style>
+</div>
+
+
+{{yield to="block"}}

@@ -5,6 +5,7 @@ import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
 // ember-qunit 6, which the Ember 3.28 scenarios install, has this module but no
 // types for it.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { loadTests } from 'ember-qunit/test-loader';
 import { start, setupEmberOnerrorValidation } from 'ember-qunit';

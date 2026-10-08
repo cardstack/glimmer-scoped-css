@@ -4,3 +4,4 @@ packages:
   - 'test-addon-to-import'
   - 'test-app'
   - 'test-app-no-global'
+  - 'test-app-vite'

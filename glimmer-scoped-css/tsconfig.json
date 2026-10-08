@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "extends": "@tsconfig/ember/tsconfig.json",
   "include": ["src/**/*", "unpublished-development-types/**/*"],
