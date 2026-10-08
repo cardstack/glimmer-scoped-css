@@ -30,7 +30,7 @@
     "decorator-transforms": "^2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
+    "@babel/core": "^7.29.7",
     "@babel/eslint-parser": "^7.24.1",
     "@babel/runtime": "^7.24.4",
     "@embroider/addon-dev": "5.0.1-unstable.c51ca2b",
