@@ -32,7 +32,7 @@ p[data-scopedcss-58ccb4dfe0-e9125e9996] {
 }
 ```
 
-The attribute has two hashes. The first identifies the component's file: for a file inside a package, it is the package name and the file's path inside the package, so the same source gets the same attribute wherever it is built. A filename that is not a file on disk is used as given. The second hash is of the `<style>` element's contents.
+The attribute has two hashes. The first identifies the component's file: for a file on disk, it is the file's path relative to the build's working directory, so the same source gets the same attribute wherever the repository is checked out. A filename that is not a file on disk is used as given. The second hash is of the `<style>` element's contents.
 
 Nested components only have the parent component’s styles on elements with `...attributes`. You can see this in action in `test-app`.
 
