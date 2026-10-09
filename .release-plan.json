@@ -1,17 +1,17 @@
 {
   "solution": {
     "glimmer-scoped-css": {
-      "impact": "minor",
-      "oldVersion": "0.8.1",
-      "newVersion": "0.9.0",
+      "impact": "patch",
+      "oldVersion": "0.9.0",
+      "newVersion": "0.9.1",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./glimmer-scoped-css/package.json"
     }
   },
-  "description": "## Release (2026-10-09)\n\nglimmer-scoped-css 0.9.0 (minor)\n\n#### :rocket: Enhancement\n* `glimmer-scoped-css`\n  * [#56](https://github.com/cardstack/glimmer-scoped-css/pull/56) Scope by the path relative to the build's working directory ([@backspace](https://github.com/backspace))\n\n#### :house: Internal\n* `test-app`\n  * [#57](https://github.com/cardstack/glimmer-scoped-css/pull/57) Assert text-decoration longhands in the addon scoped-styles test ([@backspace](https://github.com/backspace))\n\n#### Committers: 1\n- Buck Doyle ([@backspace](https://github.com/backspace))\n"
+  "description": "## Release (2026-10-09)\n\nglimmer-scoped-css 0.9.1 (patch)\n\n#### :house: Internal\n* `glimmer-scoped-css`\n  * [#63](https://github.com/cardstack/glimmer-scoped-css/pull/63) Give the published package its repository URL ([@backspace](https://github.com/backspace))\n* Other\n  * [#61](https://github.com/cardstack/glimmer-scoped-css/pull/61) Publish to npm with trusted publishing ([@backspace](https://github.com/backspace))\n\n#### Committers: 1\n- Buck Doyle ([@backspace](https://github.com/backspace))\n"
 }

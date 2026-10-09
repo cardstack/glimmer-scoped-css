@@ -2,6 +2,19 @@
 
 ## Release (2026-10-09)
 
+glimmer-scoped-css 0.9.1 (patch)
+
+#### :house: Internal
+* `glimmer-scoped-css`
+  * [#63](https://github.com/cardstack/glimmer-scoped-css/pull/63) Give the published package its repository URL ([@backspace](https://github.com/backspace))
+* Other
+  * [#61](https://github.com/cardstack/glimmer-scoped-css/pull/61) Publish to npm with trusted publishing ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
+## Release (2026-10-09)
+
 glimmer-scoped-css 0.9.0 (minor)
 
 #### :rocket: Enhancement
