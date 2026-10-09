@@ -58,5 +58,10 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
+  },
+  "pnpm": {
+    "overrides": {
+      "browserslist-generator": "^3.0.0"
+    }
   }
 }
