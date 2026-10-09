@@ -7,7 +7,8 @@ import type { WithJSUtils } from 'babel-plugin-ember-template-compilation';
 import { md5 } from 'super-fast-md5';
 import postcss from 'postcss';
 import scopedStylesPlugin from './postcss-plugin';
-import { basename } from 'path';
+import { existsSync, realpathSync } from 'fs';
+import { basename, isAbsolute, relative, sep } from 'path';
 import { GlimmerScopedCSSOptions } from '.';
 import { encodeCSS } from './encoding';
 
@@ -18,8 +19,36 @@ type Env = WithJSUtils<ASTPluginEnvironment> & {
   locals?: string[];
 };
 
-function uniqueIdentifier(filename: string): string {
-  return md5(filename).slice(0, 10);
+// The path of a file on disk relative to the build's working directory, or
+// undefined for anything else. Undefined also when `fs` or `process` is
+// unavailable, as in a bundle that stubs them out. Both paths are resolved
+// through symlinks first: `process.cwd()` is always resolved, and a filename
+// reached through a symlink would otherwise give a path up to the root and
+// back down, which holds the absolute path again.
+function cwdRelativeId(filename: string): string | undefined {
+  if (
+    typeof existsSync !== 'function' ||
+    typeof realpathSync !== 'function' ||
+    typeof process === 'undefined' ||
+    typeof process.cwd !== 'function' ||
+    !isAbsolute(filename) ||
+    !existsSync(filename)
+  ) {
+    return undefined;
+  }
+  return relative(realpathSync(process.cwd()), realpathSync(filename))
+    .split(sep)
+    .join('/');
+}
+
+// The scope prefix for a template's file. It must be the same for the same
+// source on every machine: prerendered HTML carries the prefixes of the build
+// that rendered it, and a build at another path must still style it. So a
+// file on disk is identified by its path relative to the build's working
+// directory, not by its absolute path. Any other filename, such as a synthetic
+// path that does not exist on disk, is used as given.
+export function uniqueIdentifier(filename: string): string {
+  return md5(cwdRelativeId(filename) ?? filename).slice(0, 10);
 }
 
 export function generateScopedCSSPlugin(

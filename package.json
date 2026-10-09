@@ -24,7 +24,7 @@
     "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
     "start:addon": "pnpm --filter glimmer-scoped-css start --no-watch.clearScreen",
     "start:tests": "pnpm --filter test-app start",
-    "test": "pnpm --filter test-app test",
+    "test": "pnpm --filter glimmer-scoped-css test && pnpm --filter test-app test",
     "test-build-failure": "pnpm --filter failing-test-app test",
     "test-no-global": "pnpm --filter test-app-no-global test"
   },
