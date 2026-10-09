@@ -1,5 +1,20 @@
 # Changelog
 
+## Release (2026-10-09)
+
+glimmer-scoped-css 0.9.0 (minor)
+
+#### :rocket: Enhancement
+* `glimmer-scoped-css`
+  * [#56](https://github.com/cardstack/glimmer-scoped-css/pull/56) Scope by the path relative to the build's working directory ([@backspace](https://github.com/backspace))
+
+#### :house: Internal
+* `test-app`
+  * [#57](https://github.com/cardstack/glimmer-scoped-css/pull/57) Assert text-decoration longhands in the addon scoped-styles test ([@backspace](https://github.com/backspace))
+
+#### Committers: 1
+- Buck Doyle ([@backspace](https://github.com/backspace))
+
 ## Release (2025-04-28)
 
 glimmer-scoped-css 0.8.1 (patch)
