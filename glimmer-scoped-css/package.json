@@ -3,7 +3,11 @@
   "version": "0.9.0",
   "description": "The default blueprint for Embroider v2 addons.",
   "keywords": [],
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cardstack/glimmer-scoped-css.git",
+    "directory": "glimmer-scoped-css"
+  },
   "license": "MIT",
   "author": "",
   "files": [
