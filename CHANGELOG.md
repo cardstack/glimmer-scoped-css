@@ -1,5 +1,20 @@
 # Changelog
 
+## Release (2026-11-10)
+
+glimmer-scoped-css 0.9.1 (patch)
+
+#### :house: Internal
+* Other
+  * [#64](https://github.com/cardstack/glimmer-scoped-css/pull/64) Gitignore .claude/settings.local.json in every folder ([@burieberry](https://github.com/burieberry))
+  * [#61](https://github.com/cardstack/glimmer-scoped-css/pull/61) Publish to npm with trusted publishing ([@backspace](https://github.com/backspace))
+* `glimmer-scoped-css`
+  * [#63](https://github.com/cardstack/glimmer-scoped-css/pull/63) Give the published package its repository URL ([@backspace](https://github.com/backspace))
+
+#### Committers: 2
+- Buck Doyle ([@backspace](https://github.com/backspace))
+- Burcu Noyan ([@burieberry](https://github.com/burieberry))
+
 ## Release (2026-10-09)
 
 glimmer-scoped-css 0.9.0 (minor)
