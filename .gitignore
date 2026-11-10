@@ -18,6 +18,7 @@ node_modules/
 /npm-debug.log*
 /testem.log
 /yarn-error.log
+**/.claude/settings.local.json
 
 # ember-try
 /.node_modules.ember-try/
